@@ -255,3 +255,84 @@ footer nav a:last-child { margin-right: 0; }
   section.block .wrap, footer .wrap { display: block; }
   figure.fig img.fig-mobile { display: none; }
 }
+
+/* ---- Third pass ------------------------------------------------------ */
+
+/* Sticky masthead: full lockup at the top of a page, the mark once scrolled */
+header.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--isej-warm-white);
+}
+header.masthead .wrap { transition: padding 0.15s; }
+.masthead .logo img.mark { display: none; }
+header.masthead.stuck .wrap { padding-block: 0.6rem; }
+header.masthead.stuck .logo img.lockup { width: clamp(10rem, 30vw, 12rem); }
+header.masthead.on-navy { background: var(--isej-navy); color: var(--isej-warm-white); }
+header.masthead.on-navy .wrap { border-bottom-color: rgb(246 242 234 / 0.25); }
+header.masthead.on-navy.stuck { background: var(--isej-warm-white); color: var(--isej-navy); }
+header.masthead.on-navy.stuck .wrap { border-bottom-color: var(--isej-hair); }
+.masthead .logo img.lockup.light { display: none; }
+header.masthead.on-navy.stuck .logo img.lockup:not(.light) { display: none; }
+header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
+.cover .wrap { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+#hero.drawn .c { animation: none; stroke-dashoffset: 0; }
+
+/* Issue block: a navy plate with the issue number, the contents beside it */
+.issue { padding-block: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4rem); }
+.issue .wrap { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 1.5rem; }
+.issue .plate { grid-column: 1 / -1; position: relative; background: var(--isej-navy); color: var(--isej-warm-white); padding: 2rem 2rem 2rem 3.6rem; }
+.issue .contents { grid-column: 1 / -1; margin: 0; }
+@media (min-width: 52rem) {
+  .issue .plate { grid-column: 1 / 5; }
+  .issue .contents { grid-column: 5 / 13; align-self: center; }
+}
+.issue .spine {
+  position: absolute; left: 1.1rem; top: 2rem;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--isej-font-display); font-size: var(--isej-step--1);
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-ochre);
+}
+.issue .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-ochre); margin: 0 0 1rem; }
+.issue .title { font-family: var(--isej-font-display); font-weight: 700; font-size: var(--isej-step-2); line-height: 1.15; margin: 0 0 1rem; }
+.issue .plate p:last-child { margin: 0; font-size: var(--isej-step--1); color: var(--isej-navy-45); }
+.issue .contents li small { color: var(--isej-navy-45); }
+
+/* Navy band: a section on navy with the route drawn in warm white */
+.band { background: var(--isej-navy); color: var(--isej-warm-white); padding-block: clamp(2.5rem, 5vw, 4rem); margin-top: clamp(1rem, 2vw, 2rem); }
+.band .wrap { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 1.5rem; }
+.band h2 { grid-column: 1 / -1; color: var(--isej-ochre); margin: 0.35rem 0 0; }
+.band .body { grid-column: 1 / -1; }
+.band .wide.full { grid-column: 1 / -1; margin: 0; }
+@media (min-width: 52rem) { .band h2 { grid-column: 1 / 4; } .band .body { grid-column: 4 / 10; } }
+.band a { text-decoration-color: var(--isej-ochre); }
+.band figure.fig img { opacity: 0.95; }
+
+/* Statement: one paragraph in a hairline frame */
+.statement { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.statement .wrap { border: 1px solid var(--isej-hair); padding: clamp(1.5rem, 4vw, 3rem); }
+.statement p { margin: 0; font-family: var(--isej-font-display); font-size: var(--isej-step-1); line-height: 1.45; max-width: 40rem; }
+
+/* Submit: a sticky at-a-glance column in the otherwise empty right columns */
+section.block .side { grid-column: 1 / -1; }
+@media (min-width: 52rem) {
+  section.block .side { grid-column: 10 / 13; grid-row: 1 / span 2; position: sticky; top: 5rem; align-self: start; }
+}
+.side .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-navy-85); margin: 0.35rem 0 0; }
+.side .list li { grid-template-columns: 5.5rem 1fr; padding: 0.4rem 0; }
+.side .list li b { font-family: var(--isej-font-text); font-size: var(--isej-step--1); color: var(--isej-navy-85); }
+
+/* Map: the atlas as navigation */
+.atlas { padding-block: 0 clamp(2.5rem, 5vw, 4rem); }
+.atlas svg { display: block; width: 100%; height: auto; background: var(--isej-navy); }
+.atlas .atlas-link { cursor: pointer; }
+.atlas .atlas-link .ring { transition: fill 0.2s; }
+.atlas .atlas-link:hover .ring, .atlas .atlas-link:focus-visible .ring { fill: var(--isej-ochre); }
+.atlas .atlas-link:focus-visible { outline: 2px solid var(--isej-ochre); }
+.atlas svg:has(.atlas-link:hover) .atlas-link:not(:hover) { opacity: 0.5; }
+.atlas .legend { display: none; margin: 1rem 0 0; padding-left: 1.4rem; columns: 2; font-family: var(--isej-font-display); }
+@media (max-width: 40rem) {
+  .atlas .lab, .atlas .feat { display: none; }
+  .atlas .legend { display: block; }
+}
