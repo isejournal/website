@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/site.css" />
@@ -55,64 +55,56 @@
       <section class="banner">
         <img class="field-bg" src="/assets/banners/people.svg" width="2400" height="800" alt="" />
         <div class="wrap">
-          <p class="kicker">Seven sections &middot; three clusters</p>
           <h1>Editorial board and team</h1>
-          <p class="lede">Every role has one decision right, a few deliverables and one line manager. Every role is unpaid.</p>
+          <p class="lede">Editors and leads are listed here as they are appointed, with name, role and university.</p>
         </div>
       </section>
 
       <section class="block" id="editorial">
         <div class="wrap">
-          <h2>Editorial line</h2>
+          <h2>Editorial</h2>
           <div class="body">
 
-            <div class="people-grid">
-              <div><b>Chief Editor</b><span>final decision on every refereed paper</span></div>
-              <div><b>Deputy Editor (Standards)</b><span>Cluster 1 &middot; rubric, templates, appeals</span></div>
-              <div><b>Deputy Editor (Editors and Referees)</b><span>Cluster 2 &middot; training, referee feedback</span></div>
-              <div><b>Deputy Editor (Pipeline)</b><span>Cluster 3 &middot; desk threshold, capacity</span></div>
-              <div><b>Section Head</b><span>Applied Micro, Development and Labour</span></div>
-              <div><b>Section Head</b><span>Political Economy and Public Policy</span></div>
-              <div><b>Section Head</b><span>Macroeconomics</span></div>
-              <div><b>Section Head</b><span>Finance and Financial Markets</span></div>
-              <div><b>Section Head</b><span>Econometrics and Data Science</span></div>
-              <div><b>Section Head</b><span>Trade, Law and Institutions</span></div>
-              <div><b>Section Head</b><span>Energy, Environment and Digital Infrastructure</span></div>
-              <div><b>Data Editor</b><span>methods and data desk; reproducibility checks</span></div>
-              <div><b>Junior Editors</b><span>referee handling, revisions, line edits</span></div>
-            </div>
+            <ul class="list roles">
+              <li><span>Chief Editor</span><small>final decision on every refereed paper</small></li>
+              <li><span>Deputy Editor, Standards</span><small>Cluster 1; rubric, templates, calibration, appeals</small></li>
+              <li><span>Deputy Editor, Editors and Referees</span><small>Cluster 2; Junior Editor training, referee feedback</small></li>
+              <li><span>Deputy Editor, Pipeline</span><small>Cluster 3; desk threshold and capacity across clusters</small></li>
+              <li><span>Section Heads</span><small>one for each of the seven sections; first-round decisions</small></li>
+              <li><span>Data Editor</span><small>methods and data desk; reproducibility checks</small></li>
+              <li><span>Junior Editors</span><small>referee handling, revisions, line edits</small></li>
+            </ul>
           </div>
         </div>
       </section>
 
       <section class="block" id="admin">
         <div class="wrap">
-          <h2>Administrative line</h2>
+          <h2>Administrative</h2>
           <div class="body">
 
-            <div class="people-grid">
-              <div><b>Operations Lead</b><span>systems, anonymisation, the only channel to authors</span></div>
-              <div><b>Operations Coordinators</b><span>screening, records, systems</span></div>
-              <div><b>Production Editor</b><span>templates, typesetting, the issue</span></div>
-              <div><b>Communications Lead</b><span>calls, newsletter, house voice</span></div>
-            </div>
+            <ul class="list roles">
+              <li><span>Operations Lead</span><small>systems, anonymisation, the only channel to authors</small></li>
+              <li><span>Operations Coordinators</span><small>screening, records, systems</small></li>
+              <li><span>Production Editor</span><small>templates, typesetting, the issue</small></li>
+              <li><span>Communications Lead</span><small>calls, newsletter, house voice</small></li>
+            </ul>
           </div>
         </div>
       </section>
 
       <section class="block" id="external">
         <div class="wrap">
-          <h2>External line</h2>
+          <h2>External</h2>
           <div class="body">
 
-            <div class="people-grid">
-              <div><b>Partnerships and Expansion Lead</b><span>universities, societies, campus representatives</span></div>
-              <div><b>Faculty and Academic Relations Lead</b><span>referee register, Advisory Board</span></div>
-              <div><b>Sponsorship and Funding Lead</b><span>funders; firewalled from review</span></div>
-              <div><b>Treasurer</b><span>budget and accounts; reports to the Board</span></div>
-            </div>
-            <p>Names, affiliations and journal aliases will be listed here from the roles register. <a href="/advisory-board">Academic Advisory Board</a> &middot; <a href="/join">Join the team</a></p>
-            <p class="note">Outline copy. Dates are proposed and may move by up to two weeks; final text is the Communications Lead’s.</p>
+            <ul class="list roles">
+              <li><span>Partnerships and Expansion Lead</span><small>universities, societies, campus representatives</small></li>
+              <li><span>Faculty and Academic Relations Lead</span><small>referee register, Advisory Board</small></li>
+              <li><span>Sponsorship and Funding Lead</span><small>funders; no part in review</small></li>
+              <li><span>Treasurer</span><small>budget and accounts; reports to the Board</small></li>
+            </ul>
+            <p><a href="/advisory-board">Academic Advisory Board</a> &middot; <a href="/join">Join the team</a></p>
           </div>
         </div>
       </section>
@@ -120,38 +112,15 @@
     </main>
 
     <!-- shared footer: keep identical across pages -->
-    <img class="divider" src="/assets/dividers/divider_home_light.svg" width="2400" height="240" alt="" />
     <footer>
       <div class="wrap">
-        <div>
-          <span class="tag">The journal</span>
-          <ul>
-            <li><a href="/about">About</a></li>
-            <li><a href="/people">Editorial board and team</a></li>
-            <li><a href="/advisory-board">Academic Advisory Board</a></li>
-            <li><a href="/policies">Policies</a></li>
-          </ul>
-        </div>
-        <div>
-          <span class="tag">Take part</span>
-          <ul>
-            <li><a href="/submit">Call for papers</a></li>
-            <li><a href="/referees">Join the referee pool</a></li>
-            <li><a href="/join">Join the team</a></li>
-            <li><a href="/partners">Departments, societies and sponsors</a></li>
-          </ul>
-        </div>
-        <div>
-          <span class="tag">Contact</span>
-          <ul>
-            <li><a href="mailto:isej.org@gmail.com">isej.org@gmail.com</a></li>
-            <li><a href="/contact">All enquiries</a></li>
-          </ul>
-        </div>
-        <div class="legal">
-          &copy; <span id="year">2026</span> International Student Economics Journal &middot;
-          Student-led &middot; Peer-reviewed &middot; Every role is unpaid
-        </div>
+        <p>&copy; <span id="year">2026</span> International Student Economics Journal &middot; <a href="mailto:isej.org@gmail.com">isej.org@gmail.com</a></p>
+        <nav aria-label="Secondary">
+          <a href="/advisory-board">Advisory Board</a>
+          <a href="/join">Join the team</a>
+          <a href="/policies">Policies</a>
+        </nav>
+        <p>Set in Libre Baskerville and Source Serif 4. Every line on this site is a contour of one function.</p>
       </div>
     </footer>
     <!-- end shared footer -->
