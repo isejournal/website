@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>International Student Economics Journal</title>
+    <meta
+      name="description"
+      content="The International Student Economics Journal (ISEJ) is a student-led, peer-reviewed journal for undergraduate economics research, with external academic review."
+    />
+    <meta
+      property="og:title"
+      content="International Student Economics Journal"
+    />
+    <meta
+      property="og:description"
+      content="A student-led, peer-reviewed journal for undergraduate economics research."
+    />
+    <meta property="og:type" content="website" />
+    <!-- TODO: once the domain is registered, add <link rel="canonical" href="https://YOURDOMAIN/"> and an og:url tag. -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101A2C'/%3E%3Cpath d='M5 24 C10 22 12 14 17 15 S24 8 27 7' fill='none' stroke='%23F6F8FB' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Schibsted+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --ink: #101a2c;
+        --paper: #f6f8fb;
+        --rule: #c9d3e0;
+        --muted: #4a5670;
+        --cobalt: #2b4bd8;
+        --ochre: #b97a0b;
+        --serif: "Literata", Georgia, "Times New Roman", serif;
+        --sans:
+          "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 1.125rem;
+        line-height: 1.65;
+      }
+
+      .wrap {
+        width: min(100% - 2.5rem, 62rem);
+        margin-inline: auto;
+      }
+
+      a {
+        color: var(--cobalt);
+        text-underline-offset: 0.2em;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--ochre);
+        outline-offset: 3px;
+      }
+
+      .skip {
+        position: absolute;
+        left: -999px;
+        top: 0.5rem;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.5rem 0.9rem;
+        font-family: var(--sans);
+      }
+      .skip:focus {
+        left: 0.5rem;
+        z-index: 10;
+      }
+
+      /* Masthead */
+      header.masthead {
+        padding-block: 1.5rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .masthead .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .masthead .name {
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .masthead nav {
+        font-family: var(--sans);
+        font-size: 1rem;
+      }
+      .masthead nav a {
+        color: var(--muted);
+        margin-left: 1.5rem;
+        text-decoration: none;
+      }
+      .masthead nav a:hover {
+        color: var(--cobalt);
+        text-decoration: underline;
+      }
+
+      /* Opening */
+      .opening {
+        padding-block: clamp(3rem, 9vw, 6.5rem) clamp(2rem, 5vw, 3.5rem);
+      }
+      h1 {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: clamp(2.4rem, 7.2vw, 5rem);
+        line-height: 1.03;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.5rem;
+        max-width: 14ch;
+        font-variation-settings: "opsz" 72;
+      }
+      .lede {
+        font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+        line-height: 1.5;
+        color: var(--muted);
+        max-width: 36rem;
+        margin: 0;
+      }
+
+      /* The one memorable element: a quiet time series */
+      .series {
+        margin-top: clamp(2.5rem, 6vw, 4rem);
+      }
+      .series svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      .series .grid line {
+        stroke: var(--rule);
+        stroke-width: 1;
+      }
+      .series .axis-label {
+        font-family: var(--sans);
+        font-size: 11px;
+        fill: var(--muted);
+      }
+      .series .line-a {
+        fill: none;
+        stroke: var(--cobalt);
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
+      .series .line-b {
+        fill: none;
+        stroke: var(--ink);
+        stroke-width: 1.5;
+        stroke-dasharray: 2 5;
+        stroke-linecap: round;
+      }
+      .series .dot {
+        fill: var(--ochre);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .series .line-a {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          animation: draw 2.4s cubic-bezier(0.3, 0.1, 0.2, 1) 0.3s forwards;
+        }
+        .series .dot {
+          opacity: 0;
+          animation: appear 0.4s ease 2.6s forwards;
+        }
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes appear {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Sections */
+      section.block {
+        border-top: 1px solid var(--rule);
+        padding-block: clamp(2.25rem, 5vw, 3.5rem);
+      }
+      section.block .wrap {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem 3rem;
+      }
+      @media (min-width: 52rem) {
+        section.block .wrap {
+          grid-template-columns: 12rem 1fr;
+        }
+      }
+      h2 {
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 1.05rem;
+        margin: 0.35rem 0 0;
+      }
+      .body {
+        max-width: 38rem;
+      }
+      .body p {
+        margin: 0 0 1.1rem;
+      }
+      .body p:last-child {
+        margin-bottom: 0;
+      }
+
+      .areas {
+        list-style: none;
+        margin: 1.25rem 0 0;
+        padding: 0;
+      }
+      .areas li {
+        padding: 0.6rem 0;
+        border-top: 1px solid var(--rule);
+        font-family: var(--sans);
+        font-size: 1.05rem;
+      }
+      .areas li:last-child {
+        border-bottom: 1px solid var(--rule);
+      }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        padding-block: 2rem 3rem;
+        font-family: var(--sans);
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="wrap">
+        <a class="name" href="/">International Student Economics Journal</a>
+        <nav aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="opening">
+        <div class="wrap">
+          <h1>International Student Economics Journal</h1>
+          <p class="lede">
+            A student-led, peer-reviewed journal for undergraduate economics
+            research.
+          </p>
+
+          <figure class="series" aria-hidden="true">
+            <svg viewBox="0 0 800 220" preserveAspectRatio="xMidYMid meet">
+              <g class="grid">
+                <line x1="0" y1="20" x2="800" y2="20" />
+                <line x1="0" y1="80" x2="800" y2="80" />
+                <line x1="0" y1="140" x2="800" y2="140" />
+                <line x1="0" y1="200" x2="800" y2="200" />
+              </g>
+              <path
+                class="line-b"
+                d="M0,185 C80,180 140,172 200,160 S300,150 360,142 S460,125 520,116 S640,100 700,92 S780,80 800,76"
+              />
+              <path
+                class="line-a"
+                pathLength="1"
+                d="M0,170 C60,162 100,128 160,134 S260,92 320,100 S420,50 480,74 S580,58 640,34 S740,42 800,16"
+              />
+              <circle class="dot" cx="800" cy="16" r="5" />
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <section class="block" id="about">
+        <div class="wrap">
+          <h2>About</h2>
+          <div class="body">
+            <p>
+              The International Student Economics Journal (ISEJ) provides a
+              rigorous venue for undergraduates to develop and publish original
+              work that goes beyond the standard of assessed coursework.
+            </p>
+            <p>
+              The journal is led and edited by students, while academic review
+              is external. Papers that pass the editorial desk are evaluated by
+              independent referees drawn from PhD students, faculty,
+              early-career researchers and practitioners.
+            </p>
+            <p>
+              Senior Advisers with experience at institutions including the
+              European Central Bank, the World Bank and the Bank of England
+              provide guidance on academic standards and the journal's
+              development. Our network brings together students at more than 20
+              universities in the UK, US, Europe and Asia.
+            </p>
+            <p>
+              ISEJ publishes two issues each year and accepts submissions on a
+              rolling basis. Submissions span economics and related fields,
+              including:
+            </p>
+            <ul class="areas">
+              <li>Applied microeconomics</li>
+              <li>Political economy</li>
+              <li>Macroeconomics and finance</li>
+              <li>Econometrics</li>
+              <li>Environmental and digital economics</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="contact">
+        <div class="wrap">
+          <h2>Contact</h2>
+          <div class="body">
+            <p>A journal contact address will be listed here shortly.</p>
+            <!-- TODO: replace the line above once the journal email exists, for example:
+               <p>Write to <a href="mailto:editor@YOURDOMAIN">editor@YOURDOMAIN</a>.</p> -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        &copy; <span id="year">2026</span> International Student Economics
+        Journal
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
