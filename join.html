@@ -10,6 +10,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.isejournal.org/join" />
     <meta property="og:image" content="https://www.isejournal.org/assets/og/join.png" />
+    <meta property="og:image:alt" content="ISEJ, The International Student Economics Journal: contour lines on navy" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://www.isejournal.org/join" />
     <meta name="theme-color" content="#1B2A4A" />
@@ -27,16 +28,11 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current changes) -->
+    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
     <header class="masthead">
       <div class="wrap">
         <a class="logo" href="/">
-          <img
-            src="/assets/logo-lockup.svg"
-            width="1800"
-            height="260"
-            alt="ISEJ, The International Student Economics Journal"
-          />
+          <img class="lockup" src="/assets/logo-lockup.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
         </a>
         <nav aria-label="Primary">
           <a href="/about">About</a>
@@ -84,17 +80,27 @@
       <div class="wrap">
         <p>&copy; <span id="year">2026</span> International Student Economics Journal &middot; <a href="mailto:isej.org@gmail.com">isej.org@gmail.com</a></p>
         <nav aria-label="Secondary">
+          <a href="/map">Map of the site</a>
           <a href="/advisory-board">Advisory Board</a>
           <a href="/join">Join the team</a>
           <a href="/policies">Policies</a>
         </nav>
-        <p>Set in Libre Baskerville and Source Serif 4. Every line on this site is a contour of one function.</p>
+        <p>Set in Libre Baskerville and Source Serif 4.</p>
       </div>
     </footer>
     <!-- end shared footer -->
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+      // Masthead: once the page has scrolled past its opening block, shrink the lockup to the mark.
+      (function () {
+        var top = document.querySelector(".cover, .banner, .notfound");
+        var head = document.querySelector("header.masthead");
+        if (!top || !head || !("IntersectionObserver" in window)) return;
+        new IntersectionObserver(function (e) {
+          head.classList.toggle("stuck", !e[0].isIntersecting);
+        }, { rootMargin: "-56px 0px 0px 0px", threshold: 0 }).observe(top);
+      })();
     </script>
 
     <!-- Vercel Web Analytics (cookieless visitor counts). Only works on the live site. -->
