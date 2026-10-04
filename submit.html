@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://www.isejournal.org/submit" />
     <meta name="theme-color" content="#1B2A4A" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,18 +56,10 @@
         </div>
       </section>
 
+      <div class="wrap with-side">
+        <div class="main-col">
       <section class="block" id="eligibility">
         <div class="wrap">
-          <aside class="side">
-            <p class="label">At a glance</p>
-            <ul class="list tabular">
-              <li><span>12 Oct</span><b>opens</b></li>
-              <li><span>30 Nov</span><b>priority</b></li>
-              <li><span>8 wk</span><b>to decision</b></li>
-              <li><span>4,000&ndash;6,000</span><b>words</b></li>
-              <li><span>2</span><b>referees</b></li>
-            </ul>
-          </aside>
           <h2>Eligibility</h2>
           <div class="body">
 
@@ -122,6 +114,18 @@
           </div>
         </div>
       </section>
+        </div>
+          <aside class="side">
+            <p class="label">At a glance</p>
+            <ul class="list tabular">
+              <li><span>12 Oct</span><b>opens</b></li>
+              <li><span>30 Nov</span><b>priority</b></li>
+              <li><span>8 wk</span><b>to decision</b></li>
+              <li><span class="nowrap">4,000&ndash;6,000</span><b>words</b></li>
+              <li><span>2</span><b>referees</b></li>
+            </ul>
+          </aside>
+      </div>
 
     </main>
 
@@ -142,14 +146,17 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
-      // Masthead: once the page has scrolled past its opening block, shrink the lockup to the mark.
+      // Masthead: once the opening block has scrolled past the header's bottom edge, shrink the lockup.
       (function () {
         var top = document.querySelector(".cover, .banner, .notfound");
         var head = document.querySelector("header.masthead");
         if (!top || !head || !("IntersectionObserver" in window)) return;
+        var light = head.querySelector("img.lockup.light");
         new IntersectionObserver(function (e) {
-          head.classList.toggle("stuck", !e[0].isIntersecting);
-        }, { rootMargin: "-56px 0px 0px 0px", threshold: 0 }).observe(top);
+          var stuck = !e[0].isIntersecting;
+          head.classList.toggle("stuck", stuck);
+          if (stuck && light && light.dataset.src) { light.src = light.dataset.src; delete light.dataset.src; }
+        }, { rootMargin: "-" + head.offsetHeight + "px 0px 0px 0px", threshold: 0 }).observe(top);
       })();
     </script>
 

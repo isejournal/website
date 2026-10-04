@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://www.isejournal.org/join" />
     <meta name="theme-color" content="#1B2A4A" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -64,8 +64,8 @@
             <ul class="list roles">
               <li><span>Junior Editor</span><small>referee handling, revisions, line edits; the pool for future Section Heads and Deputies</small></li>
               <li><span>Operations Coordinator</span><small>screening, anonymisation, records, author correspondence</small></li>
-              <li><span>Production assistant</span><small>typesetting support before each issue</small></li>
-              <li><span>Campus representative</span><small>your department&rsquo;s link to the journal, held alongside another role</small></li>
+              <li><span>Production Assistant</span><small>typesetting support before each issue</small></li>
+              <li><span>Campus Representative</span><small>your department&rsquo;s link to the journal, held alongside another role</small></li>
             </ul>
             <p>Doctoral students and early-career researchers are welcome in the <a href="/referees">referee pool</a>.</p>
             <p>Write to <a href="mailto:isej.org@gmail.com">isej.org@gmail.com</a> with your university, year, the sections that interest you and the hours you have a week.</p>
@@ -92,14 +92,17 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
-      // Masthead: once the page has scrolled past its opening block, shrink the lockup to the mark.
+      // Masthead: once the opening block has scrolled past the header's bottom edge, shrink the lockup.
       (function () {
         var top = document.querySelector(".cover, .banner, .notfound");
         var head = document.querySelector("header.masthead");
         if (!top || !head || !("IntersectionObserver" in window)) return;
+        var light = head.querySelector("img.lockup.light");
         new IntersectionObserver(function (e) {
-          head.classList.toggle("stuck", !e[0].isIntersecting);
-        }, { rootMargin: "-56px 0px 0px 0px", threshold: 0 }).observe(top);
+          var stuck = !e[0].isIntersecting;
+          head.classList.toggle("stuck", stuck);
+          if (stuck && light && light.dataset.src) { light.src = light.dataset.src; delete light.dataset.src; }
+        }, { rootMargin: "-" + head.offsetHeight + "px 0px 0px 0px", threshold: 0 }).observe(top);
       })();
     </script>
 

@@ -1,0 +1,62 @@
+/* ISEJ cross-document view transitions: the window travels.
+
+   Link on EVERY page, after site.css:  <link rel="stylesheet" href="/assets/field/transition.css" />
+   and load /assets/field/transition.js as a classic script in <head> (see motion-notes.md).
+
+   Each page's field graphic is one window on the same field. transition.js names that graphic
+   `field` on both pages (no selector in this file does: naming in script guarantees exactly one
+   per page) and sets six custom properties on :root:
+     --isej-to    the old view's end transform: where its lines sit in the new window
+     --isej-from  the new view's start transform: the inverse move
+     --isej-oo / --isej-no   transform-origin of the old / new image (the move's fixed point)
+     --isej-ow / --isej-nw   width of the old / new image (their natural sizes; the frame morphs)
+   The group's frame morphs from the old box to the new one and clips; the two images stay
+   registered on the field throughout. Without the properties (no script, no previous view) the
+   rules below fall back to a plain cross-fade. Firefox (no cross-document support) and
+   prefers-reduced-motion: ordinary navigation, because the opt-in below is never seen. */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
+/* The masthead stays still and paints above the travelling field (it is later in paint order). */
+header.masthead { view-transition-name: masthead; }
+
+::view-transition-group(field) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(.3, .1, .2, 1);
+  overflow: clip;
+}
+
+::view-transition-old(field),
+::view-transition-new(field) {
+  block-size: auto;
+  mix-blend-mode: plus-lighter;
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(.3, .1, .2, 1);
+  animation-fill-mode: both;
+}
+
+::view-transition-old(field) {
+  inline-size: var(--isej-ow, 100%);
+  transform-origin: var(--isej-oo, 0 0);
+  animation-name: isej-window-out;
+}
+
+::view-transition-new(field) {
+  inline-size: var(--isej-nw, 100%);
+  transform-origin: var(--isej-no, 0 0);
+  animation-name: isej-window-in;
+}
+
+/* Only rotate, scale and one shift interpolate; the pivot is fixed by transform-origin,
+   so old and new images agree on every field point at every frame. */
+@keyframes isej-window-out {
+  from { transform: none; opacity: 1; }
+  to { transform: var(--isej-to, none); opacity: 0; }
+}
+
+@keyframes isej-window-in {
+  from { transform: var(--isej-from, none); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}

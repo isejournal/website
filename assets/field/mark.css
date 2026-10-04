@@ -1,0 +1,144 @@
+/* "Our mark" explorable on the About page (section#mark). Uses the site.css tokens.
+   Ochre marks only: the parameter words, the active underline and the one ochre contour. */
+
+/* Parameter words in the text: ochre text, underlined while their slider is in use */
+#mark .param {
+  color: var(--isej-ochre-text);
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 0.15s;
+}
+#mark .param.is-active { text-decoration-color: var(--isej-ochre); }
+
+/* KaTeX: match Source Serif's x-height (0.475 em against KaTeX_Main's 0.431 em) and
+   shield math from the small-caps and tracking used in labels */
+#mark .katex {
+  font-size: 1.1em;
+  font-variant: normal;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* Display equations: left-aligned on the text column; the wide set shows when its container is wide enough */
+.mark-eq { container-type: inline-size; margin: 0.25rem 0 1.25rem; }
+.mark-eq .katex-display { margin: 0.6rem 0; overflow-x: auto; overflow-y: hidden; padding-block: 0.15rem; }
+.mark-eq .katex-display.fleqn > .katex { padding-left: 0; }
+.mark-eq .mark-eq-wide { display: none; }
+@container (min-width: 31rem) {
+  .mark-eq .mark-eq-wide { display: block; }
+  .mark-eq .mark-eq-narrow { display: none; }
+}
+
+/* The figure: this page's window on the field, at the view's own aspect ratio (set again by mark.js) */
+.isej-field[data-field="mark"] {
+  position: relative;
+  aspect-ratio: 3 / 1;
+  margin-top: 0.5rem;
+  border-bottom: 1px solid var(--isej-hair);
+}
+.isej-field[data-field="mark"] > svg,
+.isej-field[data-field="mark"] > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sliders: label in small caps, the range, the live value in tabular figures */
+.mark-controls { margin-top: 1rem; }
+.mark-controls[hidden] { display: none; }
+.mark-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 0.25rem;
+}
+.mark-kicker, .mark-slider label, .mark-code summary {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.06em;
+  color: var(--isej-navy-85);
+}
+.mark-reset {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--isej-ochre);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+.mark-reset:hover { text-decoration-thickness: 2px; }
+.mark-reset:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
+
+.mark-slider {
+  display: grid;
+  grid-template-columns: minmax(9rem, 12rem) 1fr 3.5rem;
+  align-items: center;
+  column-gap: 1rem;
+  padding-block: 0.2rem;
+  border-top: 1px solid var(--isej-hair);
+}
+.mark-slider:last-child { border-bottom: 1px solid var(--isej-hair); }
+.mark-slider label { white-space: nowrap; }
+.mark-slider label .katex { margin-right: 0.35em; color: var(--isej-navy); }
+.mark-value {
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+@media (max-width: 40rem) {
+  .mark-slider { grid-template-columns: 1fr auto; row-gap: 0; }
+  .mark-slider input[type="range"] { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* Range input: hairline track, a tick at the published value (the centre), a square navy thumb */
+.mark-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2rem;
+  margin: 0;
+  background:
+    linear-gradient(var(--isej-navy-45), var(--isej-navy-45)) 50% 50% / 1px 0.9rem no-repeat;
+  cursor: pointer;
+}
+.mark-slider input[type="range"]::-webkit-slider-runnable-track { height: 1px; background: var(--isej-navy); }
+.mark-slider input[type="range"]::-moz-range-track { height: 1px; background: var(--isej-navy); }
+.mark-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.5rem;
+  height: 1.25rem;
+  margin-top: calc(-0.625rem + 0.5px);
+  background: var(--isej-navy);
+  border: 0;
+  border-radius: 0;
+}
+.mark-slider input[type="range"]::-moz-range-thumb {
+  width: 0.5rem;
+  height: 1.25rem;
+  background: var(--isej-navy);
+  border: 0;
+  border-radius: 0;
+}
+.mark-slider input[type="range"]:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 2px; }
+
+/* The code toggle */
+.mark-code { margin-top: 1.5rem; }
+.mark-code summary { cursor: pointer; width: fit-content; }
+.mark-code summary:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
+.mark-code .mark-code-source { margin: 0.75rem 0 0; font-size: var(--isej-step--1); color: var(--isej-navy-85); }
+.mark-code pre {
+  margin: 0.5rem 0 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 1px solid var(--isej-hair);
+  overflow-x: auto;
+  font: 0.8rem/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: lining-nums;
+  tab-size: 4;
+}
+
+@media print {
+  .mark-controls, .mark-code { display: none; }
+}

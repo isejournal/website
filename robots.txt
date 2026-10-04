@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /_template
+Sitemap: https://www.isejournal.org/sitemap.xml

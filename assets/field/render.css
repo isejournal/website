@@ -1,0 +1,22 @@
+/* engine.js draw-in: the contours rise into place once, lowest level first, the ochre level last.
+   Paths from renderSvg(trace, { drawIn: true }) carry pathLength="1", class="c" and --i (their order).
+   Timing mirrors json.views.hero.draw (web_extras.animated_hero; tests/parity.js checks they agree).
+   The hidden start lives only in the keyframes, so anything that stops the animation
+   (prefers-reduced-motion, the .drawn state, a stylesheet that fails to load) leaves the lines drawn. */
+.isej-field .c {
+  stroke-dasharray: 1;
+  animation: isej-field-draw 3.2s cubic-bezier(.3, .1, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.15s);
+}
+
+@keyframes isej-field-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* already drawn this session (mountBanner adds it), or shown drawn on purpose */
+.isej-field.drawn .c { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .isej-field .c { animation: none; }
+}
