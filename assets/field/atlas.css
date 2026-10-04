@@ -1,0 +1,72 @@
+/* ISEJ map page: the probe and two marker fixes. Link on map.html only, after site.css:
+     <link rel="stylesheet" href="/assets/field/atlas.css" />
+   Markup: map-fragment.html. Behaviour: atlas.js. */
+
+.atlas-frame { position: relative; }
+.atlas .visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---- the probe line: the graphic's one ochre line while the probe shows ---------------------- */
+.atlas svg.probing .contours path[stroke="#B08D57" i] { stroke: var(--isej-warm-white); }
+.atlas svg:not(.probing) .probe-layer { display: none; }
+.atlas .probe-line {
+  fill: none;
+  stroke: var(--isej-ochre);
+  stroke-width: 1.5px;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+.atlas svg.probing .probe-line { animation: isej-probe-in 150ms linear both; } /* once, when the probe first shows */
+.atlas .probe-dot { fill: none; stroke: var(--isej-warm-white); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.atlas svg.has-probe { cursor: crosshair; }
+@keyframes isej-probe-in { from { opacity: 0; } }
+
+/* ---- the readout: warm white on the map's navy, fixed right-aligned tabular cells (no jitter) -- */
+.atlas .probe {
+  background: var(--isej-navy);
+  color: var(--isej-warm-white);
+  padding: 0.7rem 1rem 0.85rem;
+  font-size: var(--isej-step--1);
+  line-height: 1.5;
+}
+.atlas .probe p { margin: 0; }
+.atlas .probe-nums { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
+.atlas .probe var { font-style: italic; color: var(--isej-ochre); margin-right: 0.4em; }
+.atlas .probe-n {
+  display: inline-block;
+  min-width: 5.2ch;
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.atlas .probe-n.z { min-width: 6.2ch; }
+.atlas .probe-place { font-family: var(--isej-font-display); }
+.atlas .probe a { color: inherit; }
+.atlas .probe:not(.placed) .probe-near { display: none; }
+/* With scripting on, the panel's room is kept from the first paint, so revealing it shifts nothing. */
+@media (scripting: enabled) {
+  .atlas .probe[hidden] { display: block; visibility: hidden; }
+}
+@media (min-width: 52rem) {
+  /* Over the map's foot; the pointer passes through to the map, except on the link. */
+  .atlas .probe { position: absolute; left: 0; bottom: 0; min-width: 23rem; pointer-events: none; }
+  .atlas .probe a { pointer-events: auto; }
+}
+
+/* ---- markers ----------------------------------------------------------------------------------- */
+/* Keyboard focus dims the other markers, as hover does. */
+.atlas svg:focus-within:not(:focus) .atlas-link:not(:focus-within) { opacity: 0.5; }
+
+/* Touch targets of at least 24 CSS px. The atlas is 2400 units wide; at a 320 px viewport it is
+   288 px on screen (0.12 px per unit), so r = 100 gives exactly 24 px; 108 leaves a margin.
+   (Generator equivalent: r="108" on every circle.hit.) */
+@media (pointer: coarse), (max-width: 40rem) {
+  .atlas .hit { r: 108px; }
+}
+
+/* The markers are links inside a role="group" svg now, so on wide screens the legend list would be
+   nine focus stops nobody can see; it shows (and is reachable) where the labels are hidden. */
+@media (min-width: 40.0625rem) {
+  .atlas .legend { display: none; }
+}

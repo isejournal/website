@@ -1,0 +1,35 @@
+<!-- ISEJ map section for map.html (lane B). Replaces the whole <section class="atlas"> ... </section>.
+     Also add, in <head> after site.css:   <link rel="stylesheet" href="/assets/field/atlas.css" />
+     and before </body>:                   <script type="module" src="/assets/field/atlas.js"></script>
+     The svg stays generated: paste it where marked, with three things on it:
+       <svg id="atlas" ... role="group" aria-label="..." aria-describedby="atlas-legend">
+       <g class="contours" data-field="atlas"></g>   (atlas.js traces it; a group with paths is kept)
+       the nine <a class="atlas-link" data-slug="..."> markers as they are.
+     Comments in this file may be dropped when pasting. -->
+<section class="atlas">
+  <div class="wrap">
+    <p class="visually-hidden" id="atlas-legend">Nine numbered places on one contour field, one for each page; each marker is a link to its page. Moving the pointer over the map, tapping open ground, or moving keyboard focus to a marker shows the position, the height of the field and the shape of the ground at that place in the panel at the foot of the map, and draws the contour line at that height.</p>
+    <div class="atlas-frame">
+      <!-- PASTE: generated atlas svg (<svg id="atlas" ... role="group" aria-describedby="atlas-legend"> ... </svg>) -->
+      <div class="probe" hidden>
+        <p class="probe-nums">
+          <span><var>x</var><span class="probe-n" data-probe="x">&#8211;</span></span>
+          <span><var>y</var><span class="probe-n" data-probe="y">&#8211;</span></span>
+          <span><var>z</var><span class="probe-n z" data-probe="z">&#8211;</span></span>
+        </p>
+        <p class="probe-place"><span data-probe="kind">Point at the map, tap it, or tab to a place.</span><span class="probe-near">, nearest page <a data-probe="near" href="/">Home</a></span></p>
+      </div>
+    </div>
+    <ol class="legend visually-hidden-wide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/submit">Call for papers</a></li>
+      <li><a href="/referees">Referees</a></li>
+      <li><a href="/advisory-board">Advisory Board</a></li>
+      <li><a href="/people">People</a></li>
+      <li><a href="/join">Join the team</a></li>
+      <li><a href="/partners">Partners</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ol>
+  </div>
+</section>

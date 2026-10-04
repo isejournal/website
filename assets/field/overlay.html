@@ -47,7 +47,7 @@
     const paths = [...(await r.text()).matchAll(/<path\b[^>]*\bd="([^"]*)"[^>]*\/>/g)].map((m) => m[1]).filter(Boolean);
     const [w, h] = view.size;
     const body = paths.map((d) => `<path d="${d}" fill="none" stroke="${COLOURS.ochre}" stroke-width="${view.stroke}"/>`).join('');
-    return { paths, svg: `<svg class="kit" viewBox="0 0 ${w} ${h}"><g transform="translate(${nudge ? 2 : 0} 0)">${body}</g></svg>` };
+    return { paths, svg: `<svg class="kit" viewBox="0 0 ${w} ${h}"><g transform="translate(${nudge ? "2 2" : "0 0"})">${body}</g></svg>` };
   }
 
   async function show() {
@@ -55,7 +55,7 @@
     const t0 = performance.now();
     const trace = traceView(json, name);
     const ms = performance.now() - t0;
-    const engine = renderSvg(trace, { ink: COLOURS.navy, accent: COLOURS.navy });
+    const engine = renderSvg({ ...trace, opacity: null }, { ink: COLOURS.navy, accent: COLOURS.navy }); // opaque, so the blend colours read the same on every view
     const kit = await kitSvg(name, view, $('nudge').checked);
     const [w, h] = view.size;
     const stage = $('stage');

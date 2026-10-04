@@ -1,0 +1,35 @@
+/* ISEJ scroll-driven draw-in for the inline diagrams (markup: scroll-inline.md).
+
+   Link on the pages that inline a diagram, after site.css:
+     <link rel="stylesheet" href="/assets/field/scroll.css" />
+   Every path with pathLength="1" inside an svg.scroll-draw draws in as the figure enters the
+   viewport, in the order of its --i (0, 1, 2 ...; equal values draw together).
+
+   The hidden state exists only inside the keyframes. Without scroll-driven animations (Firefox
+   today), under prefers-reduced-motion (site.css forces animation: none) or with CSS off, the
+   diagram is simply there, drawn. Progress is tied to the scroll position: a path is complete by
+   the time the figure is well inside the viewport, and it runs backwards only if the reader
+   scrolls back above the figure. It never loops on its own.
+
+   One timeline per figure, declared on the <svg> (a box); the paths share it and stagger by --i.
+   A bare view() on each <path> also runs in Chrome 154, where paths at different heights measured
+   identical progress (it follows the svg's box); the named timeline states that instead of relying
+   on it. */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-draw { view-timeline: --isej-draw block; }
+
+    .scroll-draw path[pathLength] {
+      stroke-dasharray: 1;
+      animation: isej-scroll-draw linear both;
+      animation-timeline: --isej-draw;
+      animation-range: entry calc(10% + var(--i, 0) * 3%) cover calc(40% + var(--i, 0) * 3%);
+    }
+  }
+}
+
+@keyframes isej-scroll-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}

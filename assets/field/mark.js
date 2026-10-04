@@ -22,8 +22,14 @@ function formatAmplitude(value) {
   return value < 0 && text !== "0.00" ? "−" + text : text;
 }
 
+// An untouched (or reset) slider uses the exported amplitude itself: browsers normalise a range
+// input's value to about 15 significant digits, which would move the field by ~1e-16.
+function _amplitude(slider, published) {
+  return slider.value === slider.dataset.initial ? published : Number(slider.value);
+}
+
 function editedBumps(bumps, sliders) {
-  return bumps.map((bump, i) => [Number(sliders[i].value), ...bump.slice(1)]);
+  return bumps.map((bump, i) => [_amplitude(sliders[i], bump[0]), ...bump.slice(1)]);
 }
 
 // One ochre line: the view's ochre level while it is visible, else the visible level nearest to it.
@@ -90,7 +96,7 @@ function _initSlider(slider, published) {
   slider.max = String(published + SPAN);
   slider.step = String(STEP);
   slider.value = String(published);
-  slider.dataset.published = String(published);
+  slider.dataset.initial = slider.value;   // as the browser normalised it
 }
 
 function _showValue(slider) {
@@ -155,7 +161,7 @@ export async function mountMark(container) {
   reset?.addEventListener("click", (event) => {
     event.preventDefault();
     for (const slider of sliders) {
-      slider.value = slider.dataset.published;
+      slider.value = slider.dataset.initial;
       _showValue(slider);
     }
     schedule();

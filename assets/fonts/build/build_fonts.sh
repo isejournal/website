@@ -10,13 +10,16 @@ OUT=${HERE:h}
 SITE=${OUT:h:h}
 PY=/Library/Frameworks/Python.framework/Versions/3.13/bin/python3
 SRC=$HOME/isej_identity/fonts
+# Italic: the commit that last changed it ("VF replacement", 2025-10-17). Licence: the commit that last changed
+# OFL.txt (2025-03-21), whose copyright line matches the fonts' name tables; the font commit's tree has an older text.
 GF=https://raw.githubusercontent.com/google/fonts/9e63336c5ec724faa1e1e394745b33dcbb58a9c9/ofl/librebaskerville
+GF_OFL=https://raw.githubusercontent.com/google/fonts/1fee23aceb88190a096292788d35bf7ca0d03968/ofl/librebaskerville
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
 ITALIC="$TMP/LibreBaskerville-Italic[wght].ttf"
 curl -sSf -o "$ITALIC" "$GF/LibreBaskerville-Italic%5Bwght%5D.ttf"
-curl -sSf -o "$TMP/OFL-LibreBaskerville.txt" "$GF/OFL.txt"
+curl -sSf -o "$TMP/OFL-LibreBaskerville.txt" "$GF_OFL/OFL.txt"
 shasum -a 256 -c - <<SUMS
 223959683dc73ec4437bd61fabaa4b3f22209e22855ffd3aee36ba61a5116e97  $ITALIC
 3624eddd4c8f8a908130a417ae7cd089c9da69899c4e0ca1a5217d0a6fae16fd  $TMP/OFL-LibreBaskerville.txt

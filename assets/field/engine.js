@@ -136,26 +136,44 @@ export function sampleView(json, viewName, field = defaultField(json)) {
 
 // ------------------------------------------------------------------------------ marching squares
 
-// skimage _find_contours_cy._get_contour_segments with fully_connected='low' (the default). Square
-// corners ul, ur, ll, lr; crossing points T(op), B(ottom), L(eft), R(ight); each entry lists
-// (from, to) pairs. Read off skimage 0.26 by probing all 16 cases (the .pyx is not shipped).
-const CASES = ['', 'TL', 'RT', 'RL', 'LB', 'TB', 'RTLB', 'RB', 'BR', 'TLBR', 'BT', 'BL', 'LR', 'TR', 'LT', ''];
+// skimage _find_contours_cy._get_contour_segments with fully_connected='low' (the default): per square
+// (corners ul, ur, ll, lr), the (from, to) pairs among its crossing points T(op), B(ottom), L(eft),
+// R(ight). Read off skimage 0.26 by probing all 16 cases (its .pyx is not shipped).
+const T = 0, B = 1, L = 2, R = 3;
+const CASES = [[], [T, L], [R, T], [R, L], [L, B], [T, B], [R, T, L, B], [R, B], [B, R], [T, L, B, R],
+  [B, T], [B, L], [L, R], [T, R], [L, T], []];
 
-// Points are [row, col] (v index, u index) keyed by their exact values, as skimage keys tuples in dicts.
-const pt = (r, c) => ({ r, c, k: r + ',' + c });
+const frac = (from, to, level) => (to === from ? 0 : (level - from) / (to - from));
+
+// A crossing point { r, c } = (row, col) = (v index, u index). skimage keys points by their coordinate
+// values; here the key k is an integer that is equal exactly when the coordinates are: a point strictly
+// inside a grid edge belongs to that edge alone, and one that lands on a grid vertex (fraction 0 or 1,
+// or rounding to it) is keyed by the vertex, whichever edge produced it.
+function crossing(side, r0, c0, ul, ur, ll, lr, level, nu) {
+  if (side === T || side === B) {
+    const r = r0 + side, c = c0 + (side === T ? frac(ul, ur, level) : frac(ll, lr, level));
+    return { r, c, k: Number.isInteger(c) ? 3 * (r * nu + c) : 3 * (r * nu + c0) + 1 };
+  }
+  const c = c0 + (side === R), r = r0 + (side === L ? frac(ul, ll, level) : frac(ur, lr, level));
+  return { r, c, k: Number.isInteger(r) ? 3 * (r * nu + c) : 3 * (r0 * nu + c) + 2 };
+}
 
 function segments(g, level) {
   const { z, nu, nv } = g, out = [];
-  const frac = (from, to) => (to === from ? 0 : (level - from) / (to - from));
   for (let r0 = 0; r0 < nv - 1; r0++) {
-    for (let c0 = 0; c0 < nu - 1; c0++) {
-      const k = r0 * nu + c0, ul = z[k], ur = z[k + 1], ll = z[k + nu], lr = z[k + nu + 1];
-      if (ul !== ul || ur !== ur || ll !== ll || lr !== lr) continue; // NaN squares are skipped
-      const cs = CASES[(ul > level) + 2 * (ur > level) + 4 * (ll > level) + 8 * (lr > level)];
-      if (!cs) continue;
-      const at = { T: () => pt(r0, c0 + frac(ul, ur)), B: () => pt(r0 + 1, c0 + frac(ll, lr)),
-        L: () => pt(r0 + frac(ul, ll), c0), R: () => pt(r0 + frac(ur, lr), c0 + 1) };
-      for (let i = 0; i < cs.length; i += 2) out.push([at[cs[i]](), at[cs[i + 1]]()]);
+    for (let c0 = 0, k = r0 * nu; c0 < nu - 1; c0++, k++) {
+      const ul = z[k], ur = z[k + 1], ll = z[k + nu], lr = z[k + nu + 1];
+      let sq = 0;
+      if (ul > level) sq |= 1;
+      if (ur > level) sq |= 2;
+      if (ll > level) sq |= 4;
+      if (lr > level) sq |= 8;
+      if (sq === 0 || sq === 15) continue;
+      if (ul !== ul || ur !== ur || ll !== ll || lr !== lr) continue; // squares touching NaN are skipped
+      const cs = CASES[sq];
+      for (let i = 0; i < cs.length; i += 2) {
+        out.push([crossing(cs[i], r0, c0, ul, ur, ll, lr, level, nu), crossing(cs[i + 1], r0, c0, ul, ur, ll, lr, level, nu)]);
+      }
     }
   }
   return out;

@@ -28,6 +28,13 @@
   .mark-eq .mark-eq-wide { display: block; }
   .mark-eq .mark-eq-narrow { display: none; }
 }
+/* Phones: the two-line set is 406 px at 1.1em; 0.9em brings it inside columns up to 416 px */
+@container (max-width: 26rem) {
+  #mark .mark-eq .katex { font-size: 0.9em; }
+}
+@container (max-width: 19rem) {
+  #mark .mark-eq .katex { font-size: 0.78em; }   /* 320 px phones: a 288 px column */
+}
 
 /* The figure: this page's window on the field, at the view's own aspect ratio (set again by mark.js) */
 .isej-field[data-field="mark"] {
@@ -72,11 +79,18 @@
 .mark-reset:hover { text-decoration-thickness: 2px; }
 .mark-reset:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
 
-.mark-slider {
+/* One grid for all four rows (subgrid), so the label column fits the widest label and the tracks align */
+.mark-sliders {
   display: grid;
-  grid-template-columns: minmax(9rem, 12rem) 1fr 3.5rem;
-  align-items: center;
+  grid-template-columns: max-content minmax(6rem, 1fr) 3.5rem;
   column-gap: 1rem;
+}
+.mark-slider {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: max-content minmax(6rem, 1fr) 3.5rem;   /* without subgrid: same columns per row */
+  grid-template-columns: subgrid;
+  align-items: center;
   padding-block: 0.2rem;
   border-top: 1px solid var(--isej-hair);
 }
@@ -84,12 +98,15 @@
 .mark-slider label { white-space: nowrap; }
 .mark-slider label .katex { margin-right: 0.35em; color: var(--isej-navy); }
 .mark-value {
+  grid-column: 3;
   text-align: right;
   font-variant-numeric: lining-nums tabular-nums;
 }
 @media (max-width: 40rem) {
-  .mark-slider { grid-template-columns: 1fr auto; row-gap: 0; }
+  .mark-sliders { grid-template-columns: 1fr auto; }
+  .mark-slider { grid-template-columns: 1fr auto; grid-template-columns: subgrid; row-gap: 0; }
   .mark-slider input[type="range"] { grid-column: 1 / -1; grid-row: 2; }
+  .mark-value { grid-column: 2; grid-row: 1; }
 }
 
 /* Range input: hairline track, a tick at the published value (the centre), a square navy thumb */

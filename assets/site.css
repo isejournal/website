@@ -140,15 +140,19 @@ header.masthead .wrap {
   max-width: 16ch;
 }
 .cover p { margin: 0; max-width: var(--isej-measure); }
-.cover svg {
+.cover svg, .cover .hero-mount img {
   display: block;
   width: 100%;
   height: clamp(14rem, 36vw, 30rem);
   align-self: end;
 }
+.cover .hero-mount { align-self: end; height: clamp(14rem, 36vw, 30rem); }
 
-/* Inner pages: title at the top left, the page's window on the field in the lower band */
+/* Inner pages: title at the top left, the page's window on the field in the lower band.
+   The field-bg is either a static <img> (no JavaScript) or a container the engine fills with an <svg>. */
 .banner { position: relative; overflow: hidden; }
+.banner div.field-bg { position: absolute; inset: 0; z-index: 0; }
+.banner div.field-bg svg, .banner div.field-bg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 0 100%; }
 .banner .wrap { position: relative; z-index: 1; padding-block: clamp(3rem, 7vw, 5rem) clamp(5rem, 14vw, 11rem); }
 .banner img.field-bg {
   position: absolute;
@@ -257,7 +261,7 @@ footer nav a:last-child { margin-right: 0; }
 
 /* Print: the text, without navigation or the field */
 @media print {
-  .masthead nav, .cover svg, .banner img.field-bg, .skip { display: none; }
+  .masthead nav, .cover svg, .cover .hero-mount, .banner .field-bg, .skip { display: none; }
   .cover { background: none; color: var(--isej-navy); min-height: 0; }
   .cover .date { color: var(--isej-navy-85); }
   a { text-decoration: none; }
