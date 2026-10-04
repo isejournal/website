@@ -30,7 +30,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5.2rem; }
 
 body {
   margin: 0;
@@ -60,6 +60,7 @@ a {
 }
 a:hover { text-decoration-thickness: 2px; }
 a:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
+.cover a:focus-visible, .band a:focus-visible, header.masthead.on-navy:not(.stuck) a:focus-visible { outline-color: var(--isej-ochre); }
 
 .skip {
   position: absolute;
@@ -69,7 +70,7 @@ a:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
   color: var(--isej-warm-white);
   padding: 0.5rem 0.9rem;
 }
-.skip:focus { left: 0.5rem; z-index: 10; }
+.skip:focus { left: 0.5rem; z-index: 10; outline: 2px solid var(--isej-ochre); outline-offset: 2px; }
 
 /* Tracked capitals: navigation and section labels only */
 .masthead nav, h2 {
@@ -85,10 +86,15 @@ header.masthead .wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem 2rem;
-  flex-wrap: wrap;
-  padding-block: 1.4rem;
+  gap: 0.6rem 2rem;
+  height: 4.6rem;
   border-bottom: 1px solid var(--isej-hair);
+}
+@media (max-width: 60rem) {
+  header.masthead .wrap { height: auto; flex-wrap: wrap; padding-block: 0.8rem 0; }
+  .masthead nav { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.7rem; }
+  .masthead nav::-webkit-scrollbar { display: none; }
+  .masthead nav a { white-space: nowrap; }
 }
 .masthead .logo { display: block; line-height: 0; }
 .masthead .logo img {
@@ -134,15 +140,19 @@ header.masthead .wrap {
   max-width: 16ch;
 }
 .cover p { margin: 0; max-width: var(--isej-measure); }
-.cover svg {
+.cover svg, .cover .hero-mount img {
   display: block;
   width: 100%;
   height: clamp(14rem, 36vw, 30rem);
   align-self: end;
 }
+.cover .hero-mount { align-self: end; height: clamp(14rem, 36vw, 30rem); }
 
-/* Inner pages: title at the top left, the page's window on the field in the lower band */
+/* Inner pages: title at the top left, the page's window on the field in the lower band.
+   The field-bg is either a static <img> (no JavaScript) or a container the engine fills with an <svg>. */
 .banner { position: relative; overflow: hidden; }
+.banner div.field-bg { position: absolute; inset: 0; z-index: 0; }
+.banner div.field-bg svg, .banner div.field-bg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 0 100%; }
 .banner .wrap { position: relative; z-index: 1; padding-block: clamp(3rem, 7vw, 5rem) clamp(5rem, 14vw, 11rem); }
 .banner img.field-bg {
   position: absolute;
@@ -215,6 +225,10 @@ h3 {
 .list.roles li > span:first-child { font-family: var(--isej-font-display); color: var(--isej-navy); }
 
 /* Figures: full width of the text columns, caption in words */
+figure.diagram svg { display: block; width: 100%; height: auto; overflow: visible; }
+figure.diagram svg.fig-mobile { max-width: 24rem; }
+figure.diagram svg.fig-desktop { display: none; }
+@media (min-width: 52rem) { figure.diagram svg.fig-desktop { display: block; } figure.diagram svg.fig-mobile { display: none; } }
 figure.fig { margin: 0.5rem 0 0; }
 figure.fig img { display: block; width: 100%; height: auto; }
 figure.fig figcaption { font-size: var(--isej-step--1); color: var(--isej-navy-85); margin-top: 0.6rem; max-width: var(--isej-measure); }
@@ -247,7 +261,7 @@ footer nav a:last-child { margin-right: 0; }
 
 /* Print: the text, without navigation or the field */
 @media print {
-  .masthead nav, .cover svg, .banner img.field-bg, .skip { display: none; }
+  .masthead nav, .cover svg, .cover .hero-mount, .banner .field-bg, .skip { display: none; }
   .cover { background: none; color: var(--isej-navy); min-height: 0; }
   .cover .date { color: var(--isej-navy-85); }
   a { text-decoration: none; }
@@ -265,10 +279,9 @@ header.masthead {
   z-index: 5;
   background: var(--isej-warm-white);
 }
-header.masthead .wrap { transition: padding 0.15s; }
-.masthead .logo img.mark { display: none; }
-header.masthead.stuck .wrap { padding-block: 0.6rem; }
-header.masthead.stuck .logo img.lockup { width: clamp(10rem, 30vw, 12rem); }
+.masthead .logo img.lockup { transform-origin: left center; transition: transform 0.2s; }
+header.masthead.stuck .logo img.lockup { transform: scale(0.62); }
+@media (max-width: 60rem) { header.masthead.stuck .logo img.lockup { transform: none; } }
 header.masthead.on-navy { background: var(--isej-navy); color: var(--isej-warm-white); }
 header.masthead.on-navy .wrap { border-bottom-color: rgb(246 242 234 / 0.25); }
 header.masthead.on-navy.stuck { background: var(--isej-warm-white); color: var(--isej-navy); }
@@ -297,7 +310,7 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .issue .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-ochre); margin: 0 0 1rem; }
 .issue .title { font-family: var(--isej-font-display); font-weight: 700; font-size: var(--isej-step-2); line-height: 1.15; margin: 0 0 1rem; }
 .issue .plate p:last-child { margin: 0; font-size: var(--isej-step--1); color: var(--isej-navy-45); }
-.issue .contents li small { color: var(--isej-navy-45); }
+.issue .contents li small { color: var(--isej-navy-85); }
 
 /* Navy band: a section on navy with the route drawn in warm white */
 .band { background: var(--isej-navy); color: var(--isej-warm-white); padding-block: clamp(2.5rem, 5vw, 4rem); margin-top: clamp(1rem, 2vw, 2rem); }
@@ -314,25 +327,32 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .statement .wrap { border: 1px solid var(--isej-hair); padding: clamp(1.5rem, 4vw, 3rem); }
 .statement p { margin: 0; font-family: var(--isej-font-display); font-size: var(--isej-step-1); line-height: 1.45; max-width: 40rem; }
 
-/* Submit: a sticky at-a-glance column in the otherwise empty right columns */
-section.block .side { grid-column: 1 / -1; }
+/* Submit: the sections stack in one column and the at-a-glance column sticks beside them */
+.with-side { display: grid; grid-template-columns: 1fr; column-gap: 1.5rem; }
+.with-side section.block .wrap { width: 100%; }
+.with-side .side { padding-top: clamp(2rem, 4vw, 3rem); }
 @media (min-width: 52rem) {
-  section.block .side { grid-column: 10 / 13; grid-row: 1 / span 2; position: sticky; top: 5rem; align-self: start; }
+  .with-side { grid-template-columns: 9fr 3fr; }
+  .with-side .side { position: sticky; top: 5.2rem; align-self: start; }
 }
+.nowrap { white-space: nowrap; }
 .side .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-navy-85); margin: 0.35rem 0 0; }
-.side .list li { grid-template-columns: 5.5rem 1fr; padding: 0.4rem 0; }
+.side .list li { grid-template-columns: auto 1fr; padding: 0.4rem 0; align-items: baseline; }
 .side .list li b { font-family: var(--isej-font-text); font-size: var(--isej-step--1); color: var(--isej-navy-85); }
 
 /* Map: the atlas as navigation */
+.banner--short .wrap { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 .atlas { padding-block: 0 clamp(2.5rem, 5vw, 4rem); }
 .atlas svg { display: block; width: 100%; height: auto; background: var(--isej-navy); }
 .atlas .atlas-link { cursor: pointer; }
 .atlas .atlas-link .ring { transition: fill 0.2s; }
 .atlas .atlas-link:hover .ring, .atlas .atlas-link:focus-visible .ring { fill: var(--isej-ochre); }
 .atlas .atlas-link:focus-visible { outline: 2px solid var(--isej-ochre); }
-.atlas svg:has(.atlas-link:hover) .atlas-link:not(:hover) { opacity: 0.5; }
-.atlas .legend { display: none; margin: 1rem 0 0; padding-left: 1.4rem; columns: 2; font-family: var(--isej-font-display); }
+.atlas svg:has(.atlas-link:hover) .atlas-link:not(:hover), .atlas svg:has(.atlas-link:focus-visible) .atlas-link:not(:focus-visible) { opacity: 0.5; }
+.atlas .atlas-link { transition: opacity 0.2s; }
+.visually-hidden-wide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 40rem) { .visually-hidden-wide { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; } }
+.atlas .legend { display: block; margin: 1rem 0 0; padding-left: 1.4rem; columns: 2; font-family: var(--isej-font-display); }
 @media (max-width: 40rem) {
   .atlas .lab, .atlas .feat { display: none; }
-  .atlas .legend { display: block; }
 }

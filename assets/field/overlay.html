@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Field engine overlay</title>
+<style>
+  :root { --navy: #1B2A4A; --warm: #F6F2EA; --ochre: #B08D57; --ochre-text: #7B633D; }
+  body { margin: 0; font: 15px/1.45 Georgia, serif; background: var(--warm); color: var(--navy); }
+  header { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center;
+    padding: .7rem 16px; background: var(--navy); color: var(--warm); }
+  header select, header input { font: inherit; }
+  #stats { font-variant-numeric: tabular-nums; }
+  .legend { margin: .6rem 16px; max-width: 70ch; }
+  .legend b { font-weight: normal; padding: 0 .3em; color: var(--warm); }
+  .scroller { overflow: auto; height: calc(100vh - 7.5rem); border-top: 1px solid var(--navy); }
+  .stage { position: relative; background: var(--warm); }
+  .stage svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stage .kit { mix-blend-mode: difference; }
+</style>
+</head>
+<body>
+<header>
+  <label>View <select id="view"></select></label>
+  <label>Zoom <select id="zoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select></label>
+  <label><input type="checkbox" id="nudge"> shift the kit layer 2 px</label>
+  <span id="stats">loading…</span>
+</header>
+<p class="legend">engine.js in navy, the Python kit's SVG in ochre on top with <code>mix-blend-mode: difference</code>.
+  Where the two coincide the line is one olive line (<b style="background:#95630D">olive</b>); a navy line alone is
+  engine-only, a blue line (<b style="background:#466593">blue</b>) is kit-only. Tick the shift box to see what a
+  2 px mismatch looks like. Reference SVGs come from <code>tests/fixtures/</code>: run <code>tests/run.sh</code> first.</p>
+<div class="scroller" id="scroller"><div class="stage" id="stage"></div></div>
+<script type="module">
+  import { loadField, traceView, renderSvg, COLOURS } from './engine.js';
+
+  const $ = (id) => document.getElementById(id);
+  const json = await loadField('./isej-field.json');
+  for (const name of Object.keys(json.views)) $('view').add(new Option(name, name));
+  const fromHash = location.hash.slice(1);
+  if (json.views[fromHash]) $('view').value = fromHash;
+
+  async function kitSvg(name, view, nudge) {
+    const r = await fetch(`./tests/fixtures/${name}.svg`);
+    if (!r.ok) throw new Error(`tests/fixtures/${name}.svg: ${r.status} (run tests/run.sh first)`);
+    const paths = [...(await r.text()).matchAll(/<path\b[^>]*\bd="([^"]*)"[^>]*\/>/g)].map((m) => m[1]).filter(Boolean);
+    const [w, h] = view.size;
+    const body = paths.map((d) => `<path d="${d}" fill="none" stroke="${COLOURS.ochre}" stroke-width="${view.stroke}"/>`).join('');
+    return { paths, svg: `<svg class="kit" viewBox="0 0 ${w} ${h}"><g transform="translate(${nudge ? "2 2" : "0 0"})">${body}</g></svg>` };
+  }
+
+  async function show() {
+    const name = $('view').value, view = json.views[name], zoom = Number($('zoom').value);
+    const t0 = performance.now();
+    const trace = traceView(json, name);
+    const ms = performance.now() - t0;
+    const engine = renderSvg({ ...trace, opacity: null }, { ink: COLOURS.navy, accent: COLOURS.navy }); // opaque, so the blend colours read the same on every view
+    const kit = await kitSvg(name, view, $('nudge').checked);
+    const [w, h] = view.size;
+    const stage = $('stage');
+    stage.style.width = `${w * zoom}px`;
+    stage.style.height = `${h * zoom}px`;
+    stage.innerHTML = engine + kit.svg;
+    const same = trace.paths.filter((p, i) => p.d === kit.paths[i]).length;
+    const sub = (ds) => ds.reduce((n, d) => n + (d.match(/M/g) || []).length, 0);
+    $('stats').textContent = `${name}: ${trace.paths.length}/${kit.paths.length} levels, subpaths ${sub(trace.paths.map((p) => p.d))}`
+      + `/${sub(kit.paths)}, path data identical on ${same} of ${kit.paths.length} levels, traced in ${ms.toFixed(0)} ms`;
+    location.hash = name;
+    // centre the scroll on the ochre level so a screenshot shows lines
+    const ochre = trace.paths.find((p) => p.ochre) ?? trace.paths[0];
+    const nums = ochre.d.match(/-?[\d.]+/g).map(Number);
+    const mid = Math.floor(nums.length / 4) * 2;
+    $('scroller').scrollTo(nums[mid] * zoom - $('scroller').clientWidth / 2, nums[mid + 1] * zoom - $('scroller').clientHeight / 2);
+  }
+
+  for (const id of ['view', 'zoom', 'nudge']) $(id).addEventListener('change', () => show().catch(report));
+  function report(err) { $('stats').textContent = String(err); throw err; }
+  show().catch(report);
+</script>
+</body>
+</html>
