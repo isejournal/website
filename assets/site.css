@@ -339,20 +339,3 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .side .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-navy-85); margin: 0.35rem 0 0; }
 .side .list li { grid-template-columns: auto 1fr; padding: 0.4rem 0; align-items: baseline; }
 .side .list li b { font-family: var(--isej-font-text); font-size: var(--isej-step--1); color: var(--isej-navy-85); }
-
-/* Map: the atlas as navigation */
-.banner--short .wrap { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
-.atlas { padding-block: 0 clamp(2.5rem, 5vw, 4rem); }
-.atlas svg { display: block; width: 100%; height: auto; background: var(--isej-navy); }
-.atlas .atlas-link { cursor: pointer; }
-.atlas .atlas-link .ring { transition: fill 0.2s; }
-.atlas .atlas-link:hover .ring, .atlas .atlas-link:focus-visible .ring { fill: var(--isej-ochre); }
-.atlas .atlas-link:focus-visible { outline: 2px solid var(--isej-ochre); }
-.atlas svg:has(.atlas-link:hover) .atlas-link:not(:hover), .atlas svg:has(.atlas-link:focus-visible) .atlas-link:not(:focus-visible) { opacity: 0.5; }
-.atlas .atlas-link { transition: opacity 0.2s; }
-.visually-hidden-wide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@media (max-width: 40rem) { .visually-hidden-wide { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; } }
-.atlas .legend { display: block; margin: 1rem 0 0; padding-left: 1.4rem; columns: 2; font-family: var(--isej-font-display); }
-@media (max-width: 40rem) {
-  .atlas .lab, .atlas .feat { display: none; }
-}
