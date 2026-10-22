@@ -1,5 +1,7 @@
 # Type and the "Our mark" explorable: integration notes (lane C, 2026-10-04)
 
+**2026-10-22: the Our mark section was removed from about.html, with mark.js, mark.css, our-mark-fragment.html and assets/katex. The notes below are history.**
+
 ## Already wired (checked on disk, 2026-10-04)
 
 - No page loads Google Fonts. All 13 pages link `/assets/fonts/fonts.css` and preload the two text faces.
