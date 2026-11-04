@@ -90,7 +90,7 @@ header.masthead .wrap {
   height: 4.6rem;
   border-bottom: 1px solid var(--isej-hair);
 }
-@media (max-width: 60rem) {
+@media (max-width: 78rem) {
   header.masthead .wrap { height: auto; flex-wrap: wrap; padding-block: 0.8rem 0; }
   .masthead nav { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.7rem; }
   .masthead nav::-webkit-scrollbar { display: none; }
@@ -99,11 +99,11 @@ header.masthead .wrap {
 .masthead .logo { display: block; line-height: 0; }
 .masthead .logo img {
   display: block;
-  width: clamp(15rem, 60vw, 24rem);
+  width: clamp(15rem, 60vw, 20rem);
   margin-left: -2%;
   height: auto;
 }
-.masthead nav { display: flex; flex-wrap: wrap; gap: 0.25rem clamp(0.9rem, 1.8vw, 1.8rem); }
+.masthead nav { display: flex; flex-wrap: wrap; gap: 0.25rem clamp(0.9rem, 1.8vw, 1.6rem); }
 .masthead nav a { text-decoration: none; padding-block: 0.25rem; }
 .masthead nav a:hover,
 .masthead nav a[aria-current="page"] {
