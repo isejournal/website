@@ -1,7 +1,7 @@
 /* ISEJ cross-document view transitions: the window travels.
 
    Link on EVERY page, after site.css:  <link rel="stylesheet" href="/assets/field/transition.css" />
-   and load /assets/field/transition.js as a classic script in <head> (see motion-notes.md).
+   and load /assets/field/transition.js as a classic script in <head>.
 
    Each page's field graphic is one window on the same field. transition.js names that graphic
    `field` on both pages (no selector in this file does: naming in script guarantees exactly one
