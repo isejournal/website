@@ -90,21 +90,6 @@ TYPE_RULES = """/* ---- 3. Type rules: merge into site.css ---------------------
 :root {
   --isej-font-display: "Libre Baskerville", "Libre Baskerville Fallback", Georgia, "Times New Roman", serif;
   --isej-font-text: "Source Serif 4", "Source Serif 4 Fallback", Georgia, "Times New Roman", serif;
-  --isej-smcp-tracking: 0.06em;
-}
-
-/* Kit rule 5, amended 2026-10-04: kickers, navigation, section labels and the issue spine in real
-   small caps of Source Serif 4 instead of tracked Baskerville capitals. Replaces font-family,
-   font-size, letter-spacing and text-transform in ".masthead nav, h2" (Tracked capitals),
-   ".cover .date", ".issue .spine", ".issue .label" and ".side .label". Small caps at body size
-   stand 552.5 units tall against Baskerville's 770-unit capitals at --isej-step--1, about 92%
-   of the old height, hence the step up to --isej-step-0. */
-.masthead nav, h2, .cover .date, .issue .spine, .issue .label, .side .label {
-  font-family: var(--isej-font-text);
-  font-size: var(--isej-step-0);
-  font-variant-caps: all-small-caps;
-  letter-spacing: var(--isej-smcp-tracking);
-  text-transform: none;
 }
 
 /* Figures: old-style in running text, lining tabular in tables and aligned columns.
