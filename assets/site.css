@@ -320,6 +320,9 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .band .wide.full { grid-column: 1 / -1; margin: 0; }
 @media (min-width: 52rem) { .band h2 { grid-column: 1 / 4; } .band .body { grid-column: 4 / 10; } }
 .band a { text-decoration-color: var(--isej-ochre); }
+.band .list li, .band .list li:last-child { border-color: rgba(246, 242, 234, 0.28); }
+.band .list li > span:first-child { color: var(--isej-ochre); }
+.band .list li small { color: var(--isej-warm-white); }
 .band figure.fig img { opacity: 0.95; }
 
 /* Statement: one paragraph in a hairline frame */
@@ -327,15 +330,3 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .statement .wrap { border: 1px solid var(--isej-hair); padding: clamp(1.5rem, 4vw, 3rem); }
 .statement p { margin: 0; font-family: var(--isej-font-display); font-size: var(--isej-step-1); line-height: 1.45; max-width: 40rem; }
 
-/* Submit: the sections stack in one column and the at-a-glance column sticks beside them */
-.with-side { display: grid; grid-template-columns: 1fr; column-gap: 1.5rem; }
-.with-side section.block .wrap { width: 100%; }
-.with-side .side { padding-top: clamp(2rem, 4vw, 3rem); }
-@media (min-width: 52rem) {
-  .with-side { grid-template-columns: 9fr 3fr; }
-  .with-side .side { position: sticky; top: 5.2rem; align-self: start; }
-}
-.nowrap { white-space: nowrap; }
-.side .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-navy-85); margin: 0.35rem 0 0; }
-.side .list li { grid-template-columns: auto 1fr; padding: 0.4rem 0; align-items: baseline; }
-.side .list li b { font-family: var(--isej-font-text); font-size: var(--isej-step--1); color: var(--isej-navy-85); }
