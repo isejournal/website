@@ -1,12 +1,11 @@
 /* ISEJ site stylesheet.
    Colours, type and spacing follow tokens.css in the ISEJ web kit (~/isej_identity/assets/web_kit).
-   Three colours only: navy, warm white, ochre. Square corners, hairline rules, no boxes, no shadows.
-   Ochre marks things (rules, underlines, one contour line); it never carries body text on warm white. */
+   Three colours only: navy, paper, ochre. Ochre is for underlines and the one contour line, never for text. */
 
 :root {
   --isej-navy: #1B2A4A;
   --isej-navy-deep: #142038;
-  --isej-warm-white: #F6F2EA;
+  --isej-warm-white: #FCFBF8;
   --isej-ochre: #B08D57;
   --isej-ochre-text: #7B633D;
   --isej-navy-85: #3C4862;
@@ -16,7 +15,6 @@
 
   --isej-font-display: "Libre Baskerville", Georgia, "Times New Roman", serif;
   --isej-font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --isej-nav-tracking: 0.14em;
   --isej-step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
   --isej-step-0: clamp(1.05rem, 1rem + 0.25vw, 1.15rem);
   --isej-step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
@@ -72,14 +70,9 @@ a:focus-visible { outline: 2px solid var(--isej-navy); outline-offset: 4px; }
 }
 .skip:focus { left: 0.5rem; z-index: 10; outline: 2px solid var(--isej-ochre); outline-offset: 2px; }
 
-/* Tracked capitals: navigation and section labels only */
-.masthead nav, h2 {
-  font-family: var(--isej-font-display);
-  font-size: var(--isej-step--1);
-  font-weight: 400;
-  letter-spacing: var(--isej-nav-tracking);
-  text-transform: uppercase;
-}
+/* Navigation and section headings: ordinary sentence case */
+.masthead nav { font-family: var(--isej-font-text); font-size: var(--isej-step-0); font-weight: 400; }
+h2 { font-family: var(--isej-font-display); font-size: var(--isej-step-1); font-weight: 400; line-height: 1.3; }
 
 /* Masthead: lockup left, one row of links right, as in the kit's header mock */
 header.masthead .wrap {
@@ -118,26 +111,17 @@ header.masthead .wrap {
   color: var(--isej-warm-white);
   display: grid;
   grid-template-rows: auto 1fr;
-  min-height: 78vh;
   overflow: hidden;
 }
 .cover .wrap { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 3vw, 2.5rem); }
-.cover .date {
-  font-family: var(--isej-font-display);
-  font-size: var(--isej-step--1);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--isej-ochre);
-  margin: 0 0 1.2rem;
-}
 .cover h1 {
   font-family: var(--isej-font-display);
   font-weight: 700;
-  font-size: var(--isej-step-4);
-  line-height: 1.08;
+  font-size: var(--isej-step-3);
+  line-height: 1.12;
   letter-spacing: -0.01em;
   margin: 0 0 1.5rem;
-  max-width: 16ch;
+  max-width: 22ch;
 }
 .cover p { margin: 0; max-width: var(--isej-measure); }
 .cover svg, .cover .hero-mount img {
@@ -190,7 +174,7 @@ section.block .wide.full { grid-column: 1 / -1; }
   section.block .wide { grid-column: 4 / 13; }
   section.block .wide.full { grid-column: 1 / 13; margin-top: 1rem; }
 }
-h2 { color: var(--isej-navy-85); }
+h2 { color: var(--isej-navy); }
 h3 {
   font-family: var(--isej-font-display);
   font-size: var(--isej-step-0);
@@ -205,7 +189,6 @@ h3 {
 .body ul, .body ol { padding-left: 1.2rem; margin: 0 0 1rem; max-width: var(--isej-measure); }
 .body li { margin: 0 0 0.3rem; }
 .more { display: inline-block; margin-top: 0.5rem; }
-.more::after { content: " \2192"; }
 
 /* Catalogue lists: a narrow metadata column and a title column, hairline between rows */
 .list, .body .list { list-style: none; margin: 0.5rem 0 0; padding: 0; max-width: none; }
@@ -217,10 +200,12 @@ h3 {
   border-top: 1px solid var(--isej-hair);
 }
 .list li:last-child { border-bottom: 1px solid var(--isej-hair); }
-.list li > span:first-child { font-variant-numeric: lining-nums tabular-nums; color: var(--isej-navy-85); }
+.list li > span:first-child { font-variant-numeric: lining-nums tabular-nums; color: var(--isej-navy-85); white-space: nowrap; }
 .list li b { font-weight: 400; font-family: var(--isej-font-display); font-size: var(--isej-step-0); }
 .list li small { display: block; grid-column: 2; color: var(--isej-navy-85); font-size: var(--isej-step--1); }
 .list.plain li { grid-template-columns: 2.5rem 1fr; }
+.list.titles li { grid-template-columns: 1fr; }
+.list.titles li small { grid-column: 1; }
 .list.roles li { grid-template-columns: 1fr 1fr; }
 .list.roles li > span:first-child { font-family: var(--isej-font-display); color: var(--isej-navy); }
 
@@ -263,7 +248,6 @@ footer nav a:last-child { margin-right: 0; }
 @media print {
   .masthead nav, .cover svg, .cover .hero-mount, .banner .field-bg, .skip { display: none; }
   .cover { background: none; color: var(--isej-navy); min-height: 0; }
-  .cover .date { color: var(--isej-navy-85); }
   a { text-decoration: none; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
   section.block .wrap, footer .wrap { display: block; }
@@ -305,9 +289,9 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
   position: absolute; left: 1.1rem; top: 2rem;
   writing-mode: vertical-rl; transform: rotate(180deg);
   font-family: var(--isej-font-display); font-size: var(--isej-step--1);
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-ochre);
+  color: var(--isej-warm-white);
 }
-.issue .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--isej-ochre); margin: 0 0 1rem; }
+.issue .label { font-family: var(--isej-font-display); font-size: var(--isej-step--1); margin: 0 0 1rem; }
 .issue .title { font-family: var(--isej-font-display); font-weight: 700; font-size: var(--isej-step-2); line-height: 1.15; margin: 0 0 1rem; }
 .issue .plate p:last-child { margin: 0; font-size: var(--isej-step--1); color: var(--isej-navy-45); }
 .issue .contents li small { color: var(--isej-navy-85); }
@@ -315,13 +299,13 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 /* Navy band: a section on navy with the route drawn in warm white */
 .band { background: var(--isej-navy); color: var(--isej-warm-white); padding-block: clamp(2.5rem, 5vw, 4rem); margin-top: clamp(1rem, 2vw, 2rem); }
 .band .wrap { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 1.5rem; }
-.band h2 { grid-column: 1 / -1; color: var(--isej-ochre); margin: 0.35rem 0 0; }
+.band h2 { grid-column: 1 / -1; color: var(--isej-warm-white); margin: 0.35rem 0 0; }
 .band .body { grid-column: 1 / -1; }
 .band .wide.full { grid-column: 1 / -1; margin: 0; }
 @media (min-width: 52rem) { .band h2 { grid-column: 1 / 4; } .band .body { grid-column: 4 / 10; } }
 .band a { text-decoration-color: var(--isej-ochre); }
 .band .list li, .band .list li:last-child { border-color: rgba(246, 242, 234, 0.28); }
-.band .list li > span:first-child { color: var(--isej-ochre); }
+.band .list li > span:first-child { color: var(--isej-warm-white); }
 .band .list li small { color: var(--isej-warm-white); }
 .band figure.fig img { opacity: 0.95; }
 

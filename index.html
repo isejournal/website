@@ -19,11 +19,10 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-05" />
-    <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-05b" />
+    <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
-    <link rel="stylesheet" href="/assets/field/scroll.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
@@ -34,7 +33,7 @@
       <div class="wrap">
         <a class="logo" href="/">
           <img class="lockup" src="/assets/logo-lockup-navy.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
-          <img class="lockup light" data-src="/assets/logo-lockup.svg" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
+          <img class="lockup light" data-src="/assets/logo-lockup.svg?v=2026-11-05b" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
         </a>
         <nav aria-label="Primary">
           <a href="/about">About</a>
@@ -53,9 +52,8 @@
 
       <section class="cover">
         <div class="wrap">
-          <p class="date">Submissions open soon</p>
           <h1>Refereed economics, written by students</h1>
-          <p>Long-form, evidence-based economics papers, written by undergraduates, read by two external referees. <a href="/submit">Call for papers</a></p>
+          <p>Long-form, evidence-based economics papers, written by undergraduates, read by two external referees. Every accepted empirical paper is reproduced before publication. Submissions open soon: see the <a href="/submit">call for papers</a>.</p>
         </div>
         <div class="isej-field hero-mount" data-field="hero" id="hero-mount" aria-hidden="true"><noscript><img src="/assets/hero-static.svg" width="2400" height="1200" alt="" /></noscript></div>
       </section>
@@ -63,20 +61,20 @@
       <section class="issue" id="issue">
         <div class="wrap">
           <div class="plate">
-            <span class="spine">Vol. 1 &middot; No. 1</span>
+            <span class="spine">Vol. 1, No. 1</span>
             <p class="label">Forthcoming</p>
             <p class="title">Issue 1<br />March 2027</p>
             <p>Provisional. Papers accepted by 15 February appear in it.</p>
           </div>
-          <ol class="list plain contents">
-              <li><span>1</span><b>Applied Micro, Development, and Labour</b></li>
-              <li><span>2</span><b>Political Economy and Public Policy</b></li>
-              <li><span>3</span><b>Macroeconomics</b></li>
-              <li><span>4</span><b>Finance and Financial Markets</b></li>
-              <li><span>5</span><b>Econometrics and Data Science</b></li>
-              <li><span>6</span><b>Trade, Law, and Institutions</b></li>
-              <li><span>7</span><b>Energy, Environment, and Digital Infrastructure</b></li>
-          </ol>
+          <ul class="list titles contents">
+              <li><b>Applied Micro, Development, and Labour</b></li>
+              <li><b>Political Economy and Public Policy</b></li>
+              <li><b>Macroeconomics</b></li>
+              <li><b>Finance and Financial Markets</b></li>
+              <li><b>Econometrics and Data Science</b></li>
+              <li><b>Trade, Law, and Institutions</b></li>
+              <li><b>Energy, Environment, and Digital Infrastructure</b></li>
+          </ul>
         </div>
       </section>
 
@@ -100,7 +98,7 @@
         <div class="wrap">
           <h2>Review</h2>
           <div class="body">
-            <p>Every paper that passes the editors&rsquo; desk is sent to two external referees. Editors decide based on the evidence of the reports, without knowing who the author is, and authors are never told who refereed them. Every accepted empirical paper is reproduced before publication. <a href="/about#review">How review works</a></p>
+            <p>Every paper that passes the editors&rsquo; desk is sent to two external referees. Editors decide based on the evidence of the reports, without knowing who the author is, and authors are never told who refereed them. <a href="/about#review">How review works</a></p>
             <ol class="list plain">
               <li><span>1</span><b>Submission</b><small>open all year</small></li>
               <li><span>2</span><b>Screening</b><small>anonymised in 5 working days</small></li>
@@ -108,7 +106,7 @@
               <li><span>4</span><b>Two referees</b><small>reports due in 21 days</small></li>
               <li><span>5</span><b>Recommendation</b><small>second read by the Deputy</small></li>
               <li><span>6</span><b>Final decision</b><small>Editor in Chief</small></li>
-              <li><span>7</span><b>Revision</b><small>minor 14 days &middot; major 28</small></li>
+              <li><span>7</span><b>Revision</b><small>minor 14 days, major 28</small></li>
               <li><span>8</span><b>Data and code</b><small>methods desk check</small></li>
               <li><span>9</span><b>Production</b><small>typeset and proofed</small></li>
               <li><span>10</span><b>Published</b><small>two issues a year</small></li>
@@ -128,7 +126,7 @@
     <!-- shared footer: keep identical across pages -->
     <footer>
       <div class="wrap">
-        <p>&copy; <span id="year">2026</span> International Student Economics Journal &middot; <a href="mailto:operations@isejournal.org">operations@isejournal.org</a></p>
+        <p>&copy; <span id="year">2026</span> International Student Economics Journal. <a href="mailto:operations@isejournal.org">operations@isejournal.org</a></p>
         <nav aria-label="Secondary">
           <a href="/advisory-board">Advisory Board</a>
           <a href="/join">Join the team</a>
