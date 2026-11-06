@@ -41,5 +41,10 @@
       "destination": "/assets/isej-call-for-referees.pdf",
       "permanent": false
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "advisers-staged": false
+    }
+  }
 }
