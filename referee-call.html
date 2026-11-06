@@ -23,13 +23,19 @@
     <link rel="stylesheet" href="/assets/site.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <style>
-      /* One column: headings above the text, aligned with the title, no wide left margin */
-      main.flat section.block h2, main.flat section.block .body { grid-column: 1 / -1; }
-      main.flat section.block .body { max-width: 42rem; }
-      main.flat section.block .body ul { padding-left: 1.1rem; }
+      /* One centred column for the whole page, logo and title included */
+      .call .wrap { width: min(100% - 2 * var(--isej-gutter), 44rem); }
+      .call section.block .wrap { display: block; }
+      .call section.block h2 { margin: 0 0 0.8rem; }
+      .call .body p, .call .body ul, .call .lede { max-width: none; }
+      .call .body ul { padding-left: 1.2rem; }
+      .call .body ul.cc { list-style: none; padding: 0; margin: 0.4rem 0 1rem; }
+      .call .cc li { margin: 0.15rem 0; }
+      .call .pdf { margin-top: 1.2rem; }
+      .call .sign { margin-top: 1.6rem; }
     </style>
   </head>
-  <body>
+  <body class="call">
 
     <header class="masthead">
       <div class="wrap">
@@ -39,13 +45,14 @@
       </div>
     </header>
 
-    <main id="main" class="flat">
+    <main id="main">
 
       <section class="banner">
         <div class="field-bg" aria-hidden="true"><img src="/assets/banners/referees.svg" width="2400" height="800" alt="" /></div>
         <div class="wrap">
           <h1>Call for Referees</h1>
           <p class="lede">The International Student Economics Journal (ISEJ) is recruiting external referees for undergraduate economics research.</p>
+          <p class="pdf"><a href="/assets/isej-call-for-referees.pdf">View or download this call as a PDF</a> (2 pages, 104 KB)</p>
         </div>
       </section>
 
@@ -54,7 +61,8 @@
           <h2>About ISEJ</h2>
           <div class="body">
 
-            <p>ISEJ is a peer-reviewed economics journal run by students from 23 universities worldwide, including Oxford, Princeton, LSE, Cambridge, Stanford, Berkeley, NUS, and Yale. Our Senior Advisory Board includes two Yrjö Jahnsson Award recipients, former Presidents of the American Economic Association, Econometric Society, and American Finance Association, recipients of the Frisch Medal and BBVA Foundation Frontiers of Knowledge Award, a former editor of the <i>American Economic Review</i>, a Fellow of the British Academy, a former Director of the Institute for Fiscal Studies, and senior economists affiliated with the European Central Bank and World Bank.</p>
+            <p>ISEJ is a peer-reviewed economics journal run by students from 23 universities worldwide, including Oxford, Princeton, LSE, Cambridge, Stanford, Berkeley, NUS, and Yale.</p>
+            <p>Our Senior Advisory Board includes two Yrjö Jahnsson Award recipients, former Presidents of the American Economic Association, Econometric Society, and American Finance Association, recipients of the Frisch Medal and BBVA Foundation Frontiers of Knowledge Award, a former editor of the <i>American Economic Review</i>, a Fellow of the British Academy, a former Director of the Institute for Fiscal Studies, and senior economists affiliated with the European Central Bank and World Bank.</p>
             <p>We publish long-form undergraduate economics research of 4,000&ndash;6,000 words, held to a standard above ordinary coursework. Papers that pass initial editorial screening are reviewed by two external referees, matched by field and methodological expertise.</p>
           </div>
         </div>
@@ -93,9 +101,21 @@
           <h2>Interested?</h2>
           <div class="body">
 
-            <p>Please contact <a href="mailto:operations@isejournal.org?cc=sergey.shkolnikov@st-hughs.ox.ac.uk,khan.md.ezaan.journal@gmail.com,oecnews@fvoec.ch">operations@isejournal.org</a>, including your name, affiliation(s), career stage, main fields, and methodological expertise.</p>
-            <p>CC: sergey.shkolnikov@st-hughs.ox.ac.uk, khan.md.ezaan.journal@gmail.com, oecnews@fvoec.ch</p>
-            <p>Sergey Shkolnikov<br />Editor in Chief, International Student Economics Journal</p>
+            <p>Email <a href="mailto:operations@isejournal.org?cc=sergey.shkolnikov@st-hughs.ox.ac.uk,khan.md.ezaan.journal@gmail.com,oecnews@fvoec.ch">operations@isejournal.org</a>, copying in:</p>
+            <ul class="cc">
+              <li>sergey.shkolnikov@st-hughs.ox.ac.uk</li>
+              <li>khan.md.ezaan.journal@gmail.com</li>
+              <li>oecnews@fvoec.ch</li>
+            </ul>
+            <p>Please include:</p>
+            <ul>
+              <li>your name</li>
+              <li>your affiliation(s)</li>
+              <li>your career stage</li>
+              <li>your main fields</li>
+              <li>your methodological expertise</li>
+            </ul>
+            <p class="sign"><b>Sergey Shkolnikov</b><br />Editor in Chief, International Student Economics Journal</p>
           </div>
         </div>
       </section>
