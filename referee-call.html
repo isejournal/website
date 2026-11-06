@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Call for Referees · ISEJ</title>
-    <!-- Unlisted page for distributing the call: not in the nav, footer, or sitemap, not indexed, and it links to no other page. -->
+    <!-- Unlisted page for distributing the call: not in the nav, footer, or sitemap, not indexed, and it links to no other page (mailto only). -->
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content="ISEJ is recruiting external referees for undergraduate economics research: about 60 minutes a report, at most two a term." />
     <meta property="og:title" content="Call for Referees · ISEJ" />
@@ -22,6 +22,12 @@
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
+    <style>
+      /* One column: headings above the text, aligned with the title, no wide left margin */
+      main.flat section.block h2, main.flat section.block .body { grid-column: 1 / -1; }
+      main.flat section.block .body { max-width: 42rem; }
+      main.flat section.block .body ul { padding-left: 1.1rem; }
+    </style>
   </head>
   <body>
 
@@ -33,7 +39,7 @@
       </div>
     </header>
 
-    <main id="main">
+    <main id="main" class="flat">
 
       <section class="banner">
         <div class="field-bg" aria-hidden="true"><img src="/assets/banners/referees.svg" width="2400" height="800" alt="" /></div>
@@ -87,7 +93,8 @@
           <h2>Interested?</h2>
           <div class="body">
 
-            <p>Please contact <a href="mailto:operations@isejournal.org">operations@isejournal.org</a>, including your name, affiliation(s), career stage, main fields, and methodological expertise.</p>
+            <p>Please contact <a href="mailto:operations@isejournal.org?cc=sergey.shkolnikov@st-hughs.ox.ac.uk,khan.md.ezaan.journal@gmail.com,oecnews@fvoec.ch">operations@isejournal.org</a>, including your name, affiliation(s), career stage, main fields, and methodological expertise.</p>
+            <p>CC: sergey.shkolnikov@st-hughs.ox.ac.uk, khan.md.ezaan.journal@gmail.com, oecnews@fvoec.ch</p>
             <p>Sergey Shkolnikov<br />Editor in Chief, International Student Economics Journal</p>
           </div>
         </div>
