@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "/referee-call",
+      "source": "/assets/isej-call-for-referees.pdf",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -35,6 +35,11 @@
       "source": "/map",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/referee-call",
+      "destination": "/assets/isej-call-for-referees.pdf",
+      "permanent": false
     }
   ]
 }
