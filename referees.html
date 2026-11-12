@@ -109,7 +109,7 @@
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
       import { loadField, mountBanner } from "/assets/field/engine.js";
-      import { mountOpening } from "/assets/field/opening.js";
+      import { mountOpening } from "/assets/field/opening.js?v=2026-11-12b";
       try {
         const json = await loadField();
         await document.fonts.ready;   // the lines part around the text as it is finally set

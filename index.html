@@ -152,7 +152,7 @@
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
       import { loadField, mountBanner } from "/assets/field/engine.js";
-      import { mountOpening } from "/assets/field/opening.js";
+      import { mountOpening } from "/assets/field/opening.js?v=2026-11-12b";
       try {
         const json = await loadField();
         await document.fonts.ready;   // the lines part around the text as it is finally set
@@ -161,7 +161,7 @@
           if (view === "hero") {
             // headroom: the pointer's hollow (touch.js) may lower the cleared block by up to 0.008
             const opening = mountOpening(el, json, "hero", { headroom: 0.012 });
-            import("/assets/field/touch.js").then((touch) => touch.attach(opening.svg, json, "hero", opening));
+            import("/assets/field/touch.js?v=2026-11-12b").then((touch) => touch.attach(opening.svg, json, "hero", opening));
           }
           else if (view !== "mark") mountBanner(el, json, view);
         }

@@ -5,7 +5,7 @@
 // deepened until every traced line keeps at least CLEAR CSS px from each text box. Below 60rem the
 // lines sit in a band under the text (contact.css), so no bump is added. Recomputed on resize.
 import { loadField, makeField, mountBanner, COLOURS } from "/assets/field/engine.js";
-import { clearingBump, clearance } from "/assets/field/opening.js";
+import { clearingBump, clearance } from "/assets/field/opening.js?v=2026-11-12b";
 
 const VIEW = "contact";
 const WIDE = "(min-width: 60rem)";   // matches contact.css
