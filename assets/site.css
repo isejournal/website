@@ -215,6 +215,9 @@ figure.diagram svg { display: block; width: 100%; height: auto; overflow: visibl
 figure.diagram svg.fig-mobile { max-width: 24rem; }
 figure.diagram svg.fig-desktop { display: none; }
 @media (min-width: 52rem) { figure.diagram svg.fig-desktop { display: block; } figure.diagram svg.fig-mobile { display: none; } }
+/* The call-for-papers film on the Submit page: a portrait card, played once when it comes into view. */
+figure.film { margin: 0; max-width: 27rem; }
+figure.film video { display: block; width: 100%; height: auto; background: var(--isej-navy); cursor: pointer; }
 figure.fig { margin: 0.5rem 0 0; }
 figure.fig img { display: block; width: 100%; height: auto; }
 figure.fig figcaption { font-size: var(--isej-step--1); color: var(--isej-navy-85); margin-top: 0.6rem; max-width: var(--isej-measure); }
