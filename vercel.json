@@ -40,6 +40,11 @@
       "source": "/referee-call",
       "destination": "/assets/isej-call-for-referees.pdf",
       "permanent": false
+    },
+    {
+      "source": "/partners",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }
