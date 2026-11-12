@@ -13,6 +13,7 @@ const MARGIN = 48;   // CSS px added around each text box before its bump is sol
 const CLEAR = 44;    // CSS px every traced line must keep from the text (the brief asks for 40)
 const HEAD = { spread: 1.0, sign: 1 };   // kicker and address: a broad hill
 const NOTES = { spread: 0.7, sign: 1 };  // the notes: a tighter hill, so lines rise beside them
+const MIN_LEN = 200; // view px; drops the short clipped pieces the kit's 60 keeps (one sat under the masthead)
 const GROW = 1.15;   // deepen a bump by this when a line still runs too near its box...
 const TRIES = 12;    // ...at most this many times
 
@@ -63,6 +64,12 @@ function solveBumps(json, el, head, notes) {
   return { bumps: bumps(), gap: Math.min(...g) };
 }
 
+// The field with this page's view keeping only pieces at least `minLen` view px long.
+function withMinLength(json, minLen) {
+  const view = json.views[VIEW];
+  return { ...json, views: { ...json.views, [VIEW]: { ...view, min_len: Math.max(view.min_len, minLen) } } };
+}
+
 function draw(json, el, text, drawIn) {
   const { bumps, gap } = solveBumps(json, el, text.head, text.notes);
   el.dataset.clearance = gap === null ? "" : String(Math.round(gap));
@@ -78,7 +85,7 @@ async function main() {
   setMastheadHeight(stage);
   let json;
   try {
-    json = await loadField();
+    json = withMinLength(await loadField(), MIN_LEN);
   } catch (err) {
     console.warn("isej field engine:", err);   // the copy still reads on navy without the lines
     return;
