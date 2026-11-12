@@ -1,16 +1,21 @@
 // The home hero's field answers the pointer. A shallow hollow follows the cursor and the level sets
 // are retraced from the same function the kit draws, so the lines part around it and close behind.
 // Mouse and pen only; never under prefers-reduced-motion; idle costs nothing.
-import { makeField, traceView, viewToField, COLOURS } from "/assets/field/engine.js";
+// With an opening mount (opening.js) the hollow adds to the bump that keeps the title clear, and it
+// fades out as the pointer nears the text, so it can never draw a line into the words.
+import { makeField, traceView, viewToField, fieldToView, COLOURS } from "/assets/field/engine.js";
 
 const DEPTH = -0.34;     // amplitude of the hollow, field units
 const RADIUS = 0.24;     // its width (one sigma), field units
 const FOLLOW = 0.10;     // share of the remaining distance covered per frame
 const SWELL = 0.06;      // the same for the hollow's depth, so it eases in and out
 const REST = 0.003;      // below this the field is back to itself
+const NEAR = 2;          // the hollow is gone within NEAR sigmas of the text block (screen px)...
+const FAR = 3;           // ...and full strength from FAR sigmas out
 
-export function attach(svg, json, view = "hero") {
+export function attach(svg, json, view = "hero", mount = null) {
   if (!svg || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const base = () => (mount ? mount.bumps() : json.field.bumps);
   const stage = svg.closest(".cover") ?? svg;
   const spec = json.views[view];
   // while the field is moving it is traced on a grid three times as coarse, which keeps each frame short
@@ -22,6 +27,20 @@ export function attach(svg, json, view = "hero") {
   const toField = (event) => {
     const p = new DOMPoint(event.clientX, event.clientY).matrixTransform(svg.getScreenCTM().inverse());
     return viewToField(spec, p.x, p.y);
+  };
+
+  // 0 when the hollow's centre (field x, y) is near the text block, 1 well away from it; measured on
+  // screen, the hollow's sigma converted with the CTM. Worst case it lowers the block by under 0.008.
+  const strength = (x, y) => {
+    const box = mount?.box();
+    if (!box) return 1;
+    const ctm = svg.getScreenCTM(), sigma = RADIUS / spec.window[2] * ctm.a;
+    const p = new DOMPoint(...fieldToView(spec, x, y)).matrixTransform(ctm);
+    const m = mount.margin ?? 0;   // measured from the cleared block, not the bare text
+    const dx = Math.max(box.l - m - p.x, 0, p.x - box.r - m);
+    const dy = Math.max(box.t - m - p.y, 0, p.y - box.b - m);
+    const d = Math.hypot(dx, dy) / sigma;
+    return Math.min(1, Math.max(0, (d - NEAR) / (FAR - NEAR)));
   };
 
   const draw = (trace) => {
@@ -46,8 +65,9 @@ export function attach(svg, json, view = "hero") {
     now.x += (goal.x - now.x) * FOLLOW;
     now.y += (goal.y - now.y) * FOLLOW;
     now.a += (goal.a - now.a) * SWELL;
+    const f = strength(now.x, now.y);   // from where the hollow is, not where the pointer is
     const still = goal.a === 0 && now.a < REST;
-    const bumps = still ? json.field.bumps : [...json.field.bumps, [DEPTH * now.a, now.x, now.y, RADIUS, RADIUS, 0]];
+    const bumps = still ? base() : [...base(), [DEPTH * now.a * f, now.x, now.y, RADIUS, RADIUS, 0]];
     const moving = Math.hypot(goal.x - now.x, goal.y - now.y) > 0.002 || Math.abs(goal.a - now.a) > REST;
     const settling = still || !moving;      // the last frame is traced at full resolution
     draw(traceView(settling ? json : live, view, { field: makeField(json, { bumps }) }));
@@ -60,7 +80,8 @@ export function attach(svg, json, view = "hero") {
   const begin = () => {
     svg.replaceChildren();          // take over from the draw-in paths; the first frame redraws them all
     svg.classList.add("drawn");
-    draw(traceView(json, view));
+    draw(traceView(json, view, { field: makeField(json, { bumps: base() }) }));
+    if (mount) mount.render = () => { goal.a = 0; now.a = 0; draw(traceView(json, view, { field: makeField(json, { bumps: base() }) })); };
     stage.addEventListener("pointermove", (event) => {
       if (event.pointerType === "touch") return;
       [goal.x, goal.y] = toField(event);

@@ -10,6 +10,8 @@ a rule, so the browser draws the same path data as the kit's static SVGs, byte f
 | `engine.js` | ES module, no dependencies (20 KB, 7.7 KB gzipped) |
 | `isej-field.json` | the exported numbers; never hand-edit, regenerate (below) |
 | `render.css` | the draw-in keyframes, scoped to `.isej-field` |
+| `opening.js` | page openings: mounts a view behind the title and adds one bump so the lines clear the text (`data-spread`, `data-sign` tune it per page) |
+| `touch.js` | Home: the pointer's hollow, retraced on top of the opening's bump |
 | `overlay.html` | visual parity check against the kit (local only) |
 | `tests/` | parity test under JavaScriptCore |
 

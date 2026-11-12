@@ -19,20 +19,22 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12e" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12h" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
+    <link rel="stylesheet" href="/assets/pages/about.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
-    <header class="masthead">
+    <!-- shared header: keep identical across pages (only aria-current changes; Submit and 404 keep the paper variant) -->
+    <header class="masthead on-navy">
       <div class="wrap">
         <a class="logo" href="/">
-          <img class="lockup" src="/assets/logo-lockup.svg?v=2026-11-05b" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup" src="/assets/logo-lockup-navy.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup light" data-src="/assets/logo-lockup.svg?v=2026-11-05b" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
         </a>
         <nav aria-label="Primary">
           <a href="/about" aria-current="page">About</a>
@@ -48,33 +50,38 @@
 
     <main id="main">
 
-      <section class="banner">
-        <div class="field-bg isej-field" data-field="about" aria-hidden="true"><noscript><img src="/assets/banners/about.svg" width="2400" height="800" alt="" /></noscript></div>
+      <section class="banner" data-place="bottom-left">
+        <div class="field-bg isej-field" data-field="about" data-anchor="mid" data-spread="0.8" data-sign="1" aria-hidden="true"><noscript><img src="/assets/banners/about.svg" width="2400" height="800" alt="" /></noscript></div>
         <div class="wrap">
-          <h1>About the journal</h1>
+          <h1 class="two">About the journal</h1>
           <p class="lede">A refereed journal of undergraduate economics, run by students, with external referees from academia and practice.</p>
           <p class="lede">ISEJ is the first globally-run triple-blind peer-reviewed journal for undergraduate economics, and aims to provide an initial entrypoint into the world of economics research to undergraduates around the world. Authors which pass the desk-decision stage receive their referee reports regardless of the final editorial decision.</p>
         </div>
       </section>
 
-      <section class="block" id="publish">
+      <section class="block cols">
         <div class="wrap">
-          <h2>Scope</h2>
-          <div class="body">
-
+          <div class="col body" id="publish">
+            <h2>Scope</h2>
             <p>Long-form, evidence-based economic writing by undergraduate students. We accept papers of 4,000 to 6,000 words with a defensible empirical or analytical basis, answering a question the author framed. Work that began as coursework or a dissertation is eligible; work published or under consideration elsewhere is not.</p>
             <p>Causal language should be used only where identification supports it. Where an argument rests on data and code, both are published with the paper.</p>
+          </div>
+          <div class="col body" id="governance">
+            <h2>Governance</h2>
+            <p>The journal is run by its members under a written constitution adopted by its founding Board. The Board decides policy and reserved matters. An Executive runs the journal week to week through three lines: editorial, administrative, and external. No university, department, society, funder, sponsor, or adviser has any right of review or veto over editorial content.</p>
+            <a class="more" href="/people">Editorial board and team</a>
           </div>
         </div>
       </section>
 
-      <section class="block" id="review">
+      <section class="block cols review-row">
         <div class="wrap">
-          <h2>Review</h2>
-          <div class="body">
-
+          <div class="col body" id="review">
+            <h2>Review</h2>
             <p>Two external referees read every paper that passes the desk, working to a fixed report form. No decision after review rests on one report. Review is triple-blind; see <a href="/policies#anonymity">Policies</a>.</p>
             <p>Given that ISEJ is a journal for undergraduate research, the core editorial team primarily consists of undergraduates as well. Their economic judgement is supplemented by that of the referees for papers which make it past the desk.</p>
+          </div>
+          <div class="route" data-route>
             <ol class="list plain">
               <li><span>1</span><b>Screening</b><small>Anonymised by Operations within five working days of receipt</small></li>
               <li><span>2</span><b>Desk decision</b><small>Section Head, within two weeks; a desk rejection is co-signed by the cluster Deputy</small></li>
@@ -85,16 +92,12 @@
               <li><span>7</span><b>Reproduction check</b><small>Every accepted empirical paper is reproduced before production</small></li>
               <li><span>8</span><b>Publication</b><small>In the next issue whose cut-off the paper meets</small></li>
             </ol>
+          </div>
+          <div class="col body route-after">
             <p>Authors may appeal a rejection on procedural error, a demonstrable misreading, or an undeclared conflict. See <a href="/policies#appeals">Policies</a>.</p>
           </div>
-        </div>
-      </section>
-
-      <section class="block" id="sections">
-        <div class="wrap">
-          <h2>Sections</h2>
-          <div class="body">
-
+          <div class="col body" id="sections">
+            <h2>Sections</h2>
             <p>Seven sections in three clusters, each cluster led by a Deputy Editor.</p>
             <ul class="list titles">
               <li><b>Applied Micro, Development, and Labour</b></li>
@@ -109,26 +112,18 @@
         </div>
       </section>
 
-      <section class="block" id="governance">
-        <div class="wrap">
-          <h2>Governance</h2>
-          <div class="body">
-
-            <p>The journal is run by its members under a written constitution adopted by its founding Board. The Board decides policy and reserved matters. An Executive runs the journal week to week through three lines: editorial, administrative, and external. No university, department, society, funder, sponsor, or adviser has any right of review or veto over editorial content.</p>
-            <a class="more" href="/people">Editorial board and team</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="block" id="faq">
+      <section class="block cols three" id="faq">
         <div class="wrap">
           <h2>Questions</h2>
-          <div class="body">
-
+          <div class="col body">
             <h3>Who can submit?</h3>
             <p>Undergraduate students in any year and university as well as graduates within twelve months of graduation for work done as a student. Every co-author must be eligible.</p>
+          </div>
+          <div class="col body">
             <h3>May I use AI tools?</h3>
             <p>Language editing and coding help may be used with full disclosure. Text, analysis, or results generated by a tool and presented as your own work will not be accepted.</p>
+          </div>
+          <div class="col body">
             <h3>How long does a decision take?</h3>
             <p>We aim to decide within eight weeks of receipt.</p>
           </div>
@@ -168,12 +163,14 @@
     <!-- The field engine: banners and the home hero are traced in the browser from isej-field.json.
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
-      import { loadField, mountBanner, mountHero } from "/assets/field/engine.js";
+      import { loadField, mountBanner } from "/assets/field/engine.js";
+      import { mountOpening } from "/assets/field/opening.js?v=2026-11-12b";
       try {
         const json = await loadField();
+        await document.fonts.ready;   // the lines part around the text as it is finally set
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
-          if (view === "hero") mountHero(el, json);
+          if (el.closest(".banner")) mountOpening(el, json, view);
           else if (view !== "mark") mountBanner(el, json, view);
         }
       } catch (err) {
@@ -203,5 +200,6 @@
         };
     </script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script type="module" src="/assets/pages/about.js"></script>
   </body>
 </html>

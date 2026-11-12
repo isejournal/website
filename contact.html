@@ -19,20 +19,22 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12e" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12h" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
+    <link rel="stylesheet" href="/assets/pages/contact.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
-    <header class="masthead">
+    <!-- shared header: keep identical across pages (only aria-current changes; Submit and 404 keep the paper variant) -->
+    <header class="masthead on-navy">
       <div class="wrap">
         <a class="logo" href="/">
-          <img class="lockup" src="/assets/logo-lockup.svg?v=2026-11-05b" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup" src="/assets/logo-lockup-navy.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup light" data-src="/assets/logo-lockup.svg?v=2026-11-05b" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
         </a>
         <nav aria-label="Primary">
           <a href="/about">About</a>
@@ -48,20 +50,14 @@
 
     <main id="main">
 
-      <section class="banner">
+      <section class="banner contact-screen">
         <div class="field-bg isej-field" data-field="contact" aria-hidden="true"><noscript><img src="/assets/banners/contact.svg" width="2400" height="800" alt="" /></noscript></div>
         <div class="wrap">
           <h1>Contact</h1>
-          <p class="lede">Questions go to Operations, which forwards each message to the right person.</p>
-        </div>
-      </section>
-
-      <section class="block" id="address">
-        <div class="wrap">
-          <h2>Address</h2>
-          <div class="body">
-
-            <p class="lede"><a href="mailto:operations@isejournal.org">operations@isejournal.org</a></p>
+          <h2 class="contact-label">Address</h2>
+          <p class="address" id="address"><a href="mailto:operations@isejournal.org">operations@isejournal.org</a></p>
+          <div class="notes">
+            <p class="lede">Questions go to Operations, which forwards each message to the right person.</p>
             <p>Say whether your message is about a submission, refereeing, the Advisory Board, a department or society, or press.</p>
             <p>Papers are not accepted at this address; submissions open soon. Potential sponsors should write to <a href="mailto:outreach@isejournal.org">outreach@isejournal.org</a>. Any authors with a paper in review should quote their paper ID. All correspondence with authors goes through Operations, never to an editor directly.</p>
           </div>
@@ -98,25 +94,8 @@
         }, { rootMargin: "-" + head.offsetHeight + "px 0px 0px 0px", threshold: 0 }).observe(top);
       })();
     </script>
-    <!-- The field engine: banners and the home hero are traced in the browser from isej-field.json.
-         Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
-    <script type="module">
-      import { loadField, mountBanner, mountHero } from "/assets/field/engine.js";
-      try {
-        const json = await loadField();
-        for (const el of document.querySelectorAll(".isej-field[data-field]")) {
-          const view = el.dataset.field;
-          if (view === "hero") mountHero(el, json);
-          else if (view !== "mark") mountBanner(el, json, view);
-        }
-      } catch (err) {
-        console.warn("isej field engine:", err);
-        for (const el of document.querySelectorAll(".isej-field[data-field] noscript")) {
-          el.outerHTML = el.textContent;   // fall back to the static image
-        }
-      }
-    </script>
-
+    <!-- The field engine: the page's lines are traced in the browser from isej-field.json and part
+         around the address (assets/pages/contact.js). Without JavaScript the copy reads on navy alone. -->
     <!-- Vercel Web Analytics (cookieless visitor counts). Only works on the live site. -->
     <script>
       window.va =
@@ -136,5 +115,6 @@
         };
     </script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script type="module" src="/assets/pages/contact.js"></script>
   </body>
 </html>

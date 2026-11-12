@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12e" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12h" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
@@ -28,11 +28,12 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
-    <header class="masthead">
+    <!-- shared header: keep identical across pages (only aria-current changes; Submit and 404 keep the paper variant) -->
+    <header class="masthead on-navy">
       <div class="wrap">
         <a class="logo" href="/">
-          <img class="lockup" src="/assets/logo-lockup.svg?v=2026-11-05b" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup" src="/assets/logo-lockup-navy.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup light" data-src="/assets/logo-lockup.svg?v=2026-11-05b" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
         </a>
         <nav aria-label="Primary">
           <a href="/about">About</a>
@@ -48,25 +49,26 @@
 
     <main id="main">
 
-      <section class="banner">
-        <div class="field-bg isej-field" data-field="join" aria-hidden="true"><noscript><img src="/assets/banners/join.svg" width="2400" height="800" alt="" /></noscript></div>
+      <section class="banner" data-place="bottom-left">
+        <div class="field-bg isej-field" data-field="join" data-anchor="min" aria-hidden="true"><noscript><img src="/assets/banners/join.svg" width="2400" height="800" alt="" /></noscript></div>
         <div class="wrap">
           <h1>Join the team</h1>
           <p class="lede">Entry roles are the route to the senior ones, which are filled from within. All roles are unpaid.</p>
         </div>
       </section>
 
-      <section class="block" id="roles">
+      <section class="block cols" id="roles">
         <div class="wrap">
           <h2>Entry roles</h2>
-          <div class="body">
-
+          <div class="col body">
             <ul class="list roles">
               <li><span>Junior Editor</span><small>Referee handling, revisions, line edits; the pool for future Section Heads and Deputies</small></li>
               <li><span>Operations Officer</span><small>Screening, anonymisation, records, author correspondence</small></li>
               <li><span>Production Assistant</span><small>Typesetting support before each issue</small></li>
               <li><span>Campus Representative</span><small>Your department&rsquo;s link to the journal, held alongside another role</small></li>
             </ul>
+          </div>
+          <div class="col body">
             <p>Doctoral students and early-career researchers are welcome in the <a href="/referees">referee pool</a>.</p>
             <p>Write to <a href="mailto:operations@isejournal.org">operations@isejournal.org</a> with your university, year, any sections that interest you, and the hours you are willing to commit.</p>
           </div>
@@ -106,12 +108,14 @@
     <!-- The field engine: banners and the home hero are traced in the browser from isej-field.json.
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
-      import { loadField, mountBanner, mountHero } from "/assets/field/engine.js";
+      import { loadField, mountBanner } from "/assets/field/engine.js";
+      import { mountOpening } from "/assets/field/opening.js?v=2026-11-12b";
       try {
         const json = await loadField();
+        await document.fonts.ready;   // the lines part around the text as it is finally set
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
-          if (view === "hero") mountHero(el, json);
+          if (el.closest(".banner")) mountOpening(el, json, view);
           else if (view !== "mark") mountBanner(el, json, view);
         }
       } catch (err) {

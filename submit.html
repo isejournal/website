@@ -19,10 +19,11 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12e" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12h" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
+    <link rel="stylesheet" href="/assets/pages/submit.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
@@ -66,32 +67,24 @@
         </div>
       </section>
 
-      <section class="block" id="eligibility">
+      <section class="block cols">
         <div class="wrap">
-          <h2>Eligibility</h2>
-          <div class="body">
-
+          <div class="col body" id="eligibility">
+            <h2>Eligibility</h2>
             <p>Undergraduate students registered at any university are eligible, as are graduates within twelve months of graduation for work done while a student. Every co-author must be eligible. Work that began as coursework or a dissertation is welcome, but work published or under consideration elsewhere is not.</p>
           </div>
-        </div>
-      </section>
-
-      <section class="block" id="standard">
-        <div class="wrap">
-          <h2>Standard</h2>
-          <div class="body">
-
+          <div class="col body" id="standard">
+            <h2>Standard</h2>
             <p>The word count is 4,000 to 6,000 words, excluding references, tables, figures, and appendices. The bar is above ordinary coursework: a real question, backed by appropriate data or theory with a stated identification strategy and its limits. Results should be interpreted with care.</p>
             <p>We expect the most common reasons for rejection after review to be causal claims the design cannot support, results described but not interpreted, and a question the paper leaves unanswered.</p>
           </div>
         </div>
       </section>
 
-      <section class="block" id="timetable">
+      <section class="block cols timeline">
         <div class="wrap">
-          <h2>Timetable</h2>
-          <div class="body">
-
+          <div class="col body" id="timetable">
+            <h2>Timetable</h2>
             <ul class="list tabular">
               <li><span>Day 5</span><b>Screened and anonymised</b><small>You receive a paper ID and an expected decision date</small></li>
               <li><span>Week 2</span><b>Desk decision</b></li>
@@ -105,11 +98,10 @@
         </div>
       </section>
 
-      <section class="block" id="checklist">
+      <section class="block cols">
         <div class="wrap">
-          <h2>Submission</h2>
-          <div class="body">
-
+          <div class="col body" id="checklist">
+            <h2>Submission</h2>
             <p>A submission consists of:</p>
             <ul>
               <li>The manuscript, with no author-identifying information.</li>
@@ -193,5 +185,6 @@
         };
     </script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script type="module" src="/assets/pages/submit.js"></script>
   </body>
 </html>

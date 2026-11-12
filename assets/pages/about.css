@@ -1,0 +1,41 @@
+/* About: the eight review steps set along one contour of the field (about.js).
+   Without JavaScript, and below 60rem, the steps stay the numbered list they are in the markup. */
+
+.review-row .route { grid-column: 1 / -1; min-width: 0; }
+.review-row .route .list { max-width: var(--isej-measure); margin: 0; }
+.review-row .route-after p { margin: 0; }
+
+@media (min-width: 60rem) {
+  /* Review text beside Sections, the route across the full width, the appeal sentence below it */
+  .review-row #review { grid-column: 1; grid-row: 1; }
+  .review-row #sections { grid-column: 2; grid-row: 1; }
+  .review-row .route { grid-row: 2; }
+  .review-row .route-after { grid-column: 1; grid-row: 3; }
+
+  /* The route, once about.js has laid it out */
+  .route.on { position: relative; margin-block: 1.5rem 0.5rem; }
+  .route.on svg.route-field { position: absolute; left: 0; width: 100%; height: auto; overflow: visible; }
+  .route.on .list { position: relative; max-width: none; height: 100%; }
+  .route.on .list li {
+    position: absolute;
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+  .route.on .list li b { display: block; line-height: 1.3; }
+  .route.on .list li small { display: block; line-height: 1.4; margin-top: 0.15rem; }
+  /* the numbered marker sits on the line; its warm-white face parts the line around the numeral */
+  .route.on .list li > span:first-child {
+    position: absolute;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: -0.875rem 0 0 -0.875rem;
+    border: 1px solid var(--isej-navy-45);
+    border-radius: 50%;
+    background: var(--isej-warm-white);
+    color: var(--isej-navy);
+    font-size: var(--isej-step--1);
+    line-height: calc(1.75rem - 2px);
+    text-align: center;
+  }
+}
