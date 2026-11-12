@@ -1,4 +1,4 @@
-// The home hero's field answers the pointer. A shallow hollow follows the cursor and the level sets
+// An opening's field answers the pointer (Home and every inner page). A shallow hollow follows the cursor and the level sets
 // are retraced from the same function the kit draws, so the lines part around it and close behind.
 // Mouse and pen only; never under prefers-reduced-motion; idle costs nothing.
 // With an opening mount (opening.js) the hollow adds to the bump that keeps the title clear, and it
@@ -16,7 +16,7 @@ const FAR = 3;           // ...and full strength from FAR sigmas out
 export function attach(svg, json, view = "hero", mount = null) {
   if (!svg || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const base = () => (mount ? mount.bumps() : json.field.bumps);
-  const stage = svg.closest(".cover") ?? svg;
+  const stage = svg.closest(".cover, .banner") ?? svg;
   const spec = json.views[view];
   // while the field is moving it is traced on a grid three times as coarse, which keeps each frame short
   const live = { ...json, views: { ...json.views, [view]: { ...spec, step: spec.step * 3 } } };
