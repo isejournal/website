@@ -175,6 +175,17 @@ section.block .wide.full { grid-column: 1 / -1; }
   section.block .wide { grid-column: 4 / 13; }
   section.block .wide.full { grid-column: 1 / 13; margin-top: 1rem; }
 }
+/* A page that pairs reading matter with a form: the text on the left, the form on the right, both starting
+   at the top so the form is on screen without scrolling. One column below 60rem, text first. */
+section.block.split .wrap { grid-template-columns: 1fr; row-gap: 2.5rem; }
+section.block.split .reading, section.block.split .form { grid-column: 1 / -1; min-width: 0; }
+section.block.split h2 { margin: 0 0 0.9rem; }
+section.block.split .reading h2:not(:first-child) { margin-top: 2.25rem; }
+section.block.split p { margin: 0 0 1rem; max-width: var(--isej-measure); }
+@media (min-width: 60rem) {
+  section.block.split .wrap { grid-template-columns: 5fr 6fr; column-gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+  section.block.split .reading, section.block.split .form { grid-column: auto; }
+}
 h2 { color: var(--isej-navy); }
 h3 {
   font-family: var(--isej-font-display);
