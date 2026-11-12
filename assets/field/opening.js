@@ -2,19 +2,21 @@
 // lines part around the text. One smooth bump is added under the text block, with the smallest
 // amplitude (either sign) that puts the whole block, plus a margin, between two neighbouring levels
 // (or beyond the outermost), so no line can cross it; the field is
-// then traced as the kit traces it. Recomputed on resize (debounced). Below 52rem the lines sit in a
-// band under the text instead (CSS), so no bump is added there.
+// then traced as the kit traces it. Recomputed on resize (debounced). Below 60rem the lines sit in a
+// band under the text instead (CSS), so no bump is added there. A page may crop its view to the
+// left, middle or right: <div data-field="about" data-anchor="mid"> (default: as engine.js renders).
 import { makeField, traceView, traceLevel, renderSvg, mountBanner, viewToField, COLOURS } from "/assets/field/engine.js";
 
-const WIDE = "(min-width: 52rem)";  // matches site.css
-const MARGIN = 36;      // CSS px kept clear around the text block (the check asks for about 20)
-const SPREAD = 1.35;    // bump sigma as a multiple of the cleared block's half-size; wider spreads the rings
+const WIDE = "(min-width: 60rem)";  // matches site.css
+const MARGIN = 50;      // CSS px kept clear around the text block (the check asks for at least 40)
+const SPREAD = 1.0;     // bump sigma as a multiple of the cleared block's half-size; wider spreads the rings
 const EPS = 0.012;      // field units the block clears the outermost level by
 const SAMPLES = 32;     // grid points per side when testing the block
-const CLEAR = 24;       // CSS px every traced line must keep from the text, checked after tracing
+const CLEAR = 44;       // CSS px every traced line must keep from the text, checked after tracing
 const GROW = 1.2;       // if a small loop slipped between the samples, deepen the bump by this...
 const TRIES = 8;        // ...at most this many times
 const FIT = { banner: [0, 1], hero: [0.5, 1] };  // preserveAspectRatio anchors, as engine.js renders (slice)
+const ANCHOR = { min: 0, mid: 0.5, max: 1 };     // data-anchor: the x anchor a page may choose instead
 
 // Screen box of the text itself (line boxes, not the block's max-width), in CSS px.
 function textBox(els) {
@@ -33,7 +35,8 @@ function textBox(els) {
 
 // CSS px (relative to the stage) -> view px, for an svg filling the stage with `slice`.
 function stageMap(stage, view) {
-  const r = stage.getBoundingClientRect(), [w, h] = view.size, [ax, ay] = FIT[view.kind] ?? FIT.banner;
+  const r = stage.getBoundingClientRect(), [w, h] = view.size, [fx, ay] = FIT[view.kind] ?? FIT.banner;
+  const ax = ANCHOR[stage.dataset.anchor] ?? fx;
   const k = Math.max(r.width / w, r.height / h);
   const ox = r.left + ax * (r.width - k * w), oy = r.top + ay * (r.height - k * h);
   return { k, toView: (x, y) => [(x - ox) / k, (y - oy) / k], toScreen: (u, v) => [ox + k * u, oy + k * v] };
@@ -119,6 +122,10 @@ export function mountOpening(el, json, viewName, opts = {}) {
 
   solve();
   mount.svg = mountBanner(el, json, viewName, { ink: COLOURS.warmWhite, mask: false, field: mount.field() });
+  if (el.dataset.anchor in ANCHOR) {
+    const x = { min: "xMin", mid: "xMid", max: "xMax" }[el.dataset.anchor];
+    mount.svg.setAttribute("preserveAspectRatio", `${x}YMax slice`);
+  }
   let timer = 0, last = [innerWidth, innerHeight];
   addEventListener("resize", () => {
     clearTimeout(timer);

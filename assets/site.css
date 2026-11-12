@@ -364,27 +364,52 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 /* ---- Openings ---------------------------------------------------------
    Every page but Submit opens like the call-for-papers film: a navy band, the title large in solid
    warm white, and the page's own contour lines (opening.js) parting around the text.
-   Phones: the text on navy, then the lines in a band beneath it, as on Home. */
+   Wide screens: the band fills the first screen under the masthead, and each page sets its text
+   where its own view of the field leaves calm room (data-place on the section; data-anchor on the
+   field picks which side of the view the band crops to, read by opening.js).
+   Below 60rem: the text on navy, then the lines in a band beneath it, as on Home. */
+:root { --isej-mast: 4.6rem; }   /* masthead height, one row of links */
+@media (max-width: 78rem) { :root { --isej-mast: 7.4rem; } }   /* the links wrap to a second row */
 .banner { background: var(--isej-navy); color: var(--isej-warm-white); display: flex; flex-direction: column; }
 .banner .wrap { order: 1; padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem); }
 .banner div.field-bg { position: relative; order: 2; height: clamp(9rem, 32vw, 14rem); }
 .banner div.field-bg img { display: none; }   /* the static banners are drawn for paper, not navy */
 .banner h1, .cover h1 {
-  font-size: clamp(2.6rem, 6vw, 5.5rem);
-  line-height: 1.06;
-  letter-spacing: -0.015em;
+  font-size: clamp(2.6rem, 9vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
   max-width: 15ch;
+  hyphens: manual;
+  overflow-wrap: normal;
   margin: 0 0 clamp(1.2rem, 2.5vw, 2rem);
   color: var(--isej-warm-white);
 }
-@media (min-width: 52rem) {
-  .banner, .cover { position: relative; display: block; min-height: clamp(30rem, 44vw, 42rem); }
+@media (min-width: 60rem) {
+  .banner, .cover {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: clamp(34rem, calc(100svh - var(--isej-mast)), 62rem);
+  }
   .banner div.field-bg, .cover .hero-mount { position: absolute; inset: 0; height: auto; align-self: stretch; z-index: 0; }
   .cover svg { height: 100%; }
   .cover .hero-mount img { display: none; }   /* the static hero would cross the title */
-  .banner .wrap, .cover .wrap { position: relative; z-index: 1; padding-block: clamp(5rem, 9vw, 8rem) clamp(5rem, 9vw, 8rem); }
-}
-@media (min-width: 52rem) {
-  /* Home's text block is the largest; a taller band leaves the hero's lines room beneath it */
-  .cover { min-height: clamp(36rem, 56vw, 52rem); }
+  .banner .wrap, .cover .wrap { position: relative; z-index: 1; padding-block: clamp(3rem, 9svh, 6.5rem); }
+
+  /* Title sizes scale with the narrower of width and height, so the block always fits the screen */
+  .banner h1 { font-size: clamp(4.5rem, min(9.5vw, 17svh), 9rem); max-width: none; }   /* one line */
+  .banner, .cover { --isej-title-two: clamp(3.6rem, min(6.3vw, 11svh), 7rem); }
+  .banner h1:where(.two), .cover h1 { font-size: var(--isej-title-two); line-height: 1.02; }
+  .banner h1.two { max-width: 16ch; }
+  .cover h1 { max-width: 20ch; font-size: clamp(3.6rem, min(6.3vw, 11svh), 6.5rem); }   /* its longest line must fit the 72rem wrap */
+
+  /* Placements: vertical by the band's flex alignment, horizontal by the block's inset */
+  [data-place|="top"] { justify-content: flex-start; }
+  [data-place|="mid"] { justify-content: center; }
+  [data-place|="bottom"] { justify-content: flex-end; }
+  [data-place$="-inset"] > .wrap { padding-inline-start: clamp(4rem, 9vw, 9rem); }
+  /* the block set against the right margin, as wide as its longest title line ("Editorial board", 7.7em) */
+  [data-place$="-right"] > .wrap { display: grid; grid-template-columns: 1fr min(100%, max(34rem, 8 * var(--isej-title-two))); }
+  [data-place$="-right"] > .wrap > * { grid-column: 2; }
 }
