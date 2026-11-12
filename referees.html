@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12c" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12f" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
@@ -57,33 +57,20 @@
         </div>
       </section>
 
-      <section class="block" id="report">
+      <section class="block split" id="join">
         <div class="wrap">
-          <h2>The report</h2>
-          <div class="body">
-
+          <div class="reading">
+            <h2 id="report">The report</h2>
             <p>A report is designed to take about an hour, on a fixed form of eight short sections: summary, question and contribution, data and identification, interpretation, presentation, ratings, recommendation, and confidential comments to the editors. If it regularly takes more than ninety minutes, we will shorten the form. You are asked for at most two reports a term, each due 21 days after you accept. Being in the pool does not oblige you to accept any particular invitation.</p>
             <p>Referees comment on identification, economic reasoning, interpretation, and presentation. Editorial and eligibility decisions, revisions, and all correspondence with authors stay with the editorial team.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="block" id="anonymity">
-        <div class="wrap">
-          <h2>Anonymity</h2>
-          <div class="body">
-
+            <h2 id="anonymity">Anonymity</h2>
             <p>Review is triple-blind; see <a href="/policies#anonymity">Policies</a>. Referees are credited in an annual acknowledgement unless they opt out, and will never be identified to authors.</p>
           </div>
-        </div>
-      </section>
-
-      <section class="block" id="join">
-        <div class="wrap">
-          <h2>Joining the pool</h2>
-          <div class="body">
-
-            <p>Write to <a href="mailto:operations@isejournal.org">operations@isejournal.org</a> with your institution, career stage, fields, and the methods you can assess. Replies are added to the referee register within a week.</p>
+          <div class="form">
+            <h2>Joining the pool</h2>
+            <iframe class="tally" data-tally-src="https://tally.so/embed/lae0gp?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="1400" title="Express interest in joining the ISEJ referee pool"></iframe>
+            <noscript><p>The form needs JavaScript. You can also <a href="https://tally.so/r/lae0gp">open it on its own page</a>.</p></noscript>
+            <p>If the form does not load, write to <a href="mailto:operations@isejournal.org">operations@isejournal.org</a> with your institution, career stage, fields, and the methods you can assess.</p>
           </div>
         </div>
       </section>
@@ -137,6 +124,20 @@
           el.outerHTML = el.textContent;   // fall back to the static image
         }
       }
+    </script>
+
+    <!-- Tally form embed: sets each form's address and keeps the frame as tall as the form. -->
+    <script>
+      (function () {
+        var src = "https://tally.so/widgets/embed.js";
+        var load = function () {
+          if (typeof Tally !== "undefined") { Tally.loadEmbeds(); return; }
+          document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (frame) { frame.src = frame.dataset.tallySrc; });
+        };
+        var script = document.createElement("script");
+        script.src = src; script.onload = load; script.onerror = load;
+        document.body.appendChild(script);
+      })();
     </script>
 
     <!-- Vercel Web Analytics (cookieless visitor counts). Only works on the live site. -->
