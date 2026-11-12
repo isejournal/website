@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12b" />
+    <link rel="stylesheet" href="/assets/site.css?v=2026-11-12d" />
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
@@ -48,21 +48,21 @@
 
     <main id="main">
 
-      <section class="banner">
-        <div class="field-bg isej-field" data-field="submit" aria-hidden="true"><noscript><img src="/assets/banners/submit.svg" width="2400" height="800" alt="" /></noscript></div>
-        <div class="wrap">
-          <h1>Call for papers</h1>
-          <p class="lede">Submissions will open soon and are handled as they arrive.</p>
-        </div>
+      <section class="filmhero">
+        <h1 class="filmhero-title">Call for papers</h1>
+        <video class="film film-wide" muted playsinline preload="none" width="1920" height="960" poster="/assets/media/call-for-papers-wide.jpg?v=2026-11-12" aria-label="Call for papers: a nine-second title film with no sound. Everything it says is in the text of this page.">
+          <source src="/assets/media/call-for-papers-wide.mp4?v=2026-11-12" type="video/mp4" />
+        </video>
+        <video class="film film-tall" muted playsinline preload="none" width="1080" height="1350" poster="/assets/media/call-for-papers.jpg?v=2026-11-12" aria-label="Call for papers: a nine-second title film with no sound. Everything it says is in the text of this page.">
+          <source src="/assets/media/call-for-papers.mp4?v=2026-11-12" type="video/mp4" />
+        </video>
       </section>
 
-      <section class="block" id="film">
+      <section class="block" id="status">
         <div class="wrap">
-          <figure class="wide film">
-            <video muted playsinline preload="metadata" width="1080" height="1350" poster="/assets/media/call-for-papers.jpg?v=2026-11-12" aria-label="Call for papers: a nine-second title film with no sound. Everything it says is in the text of this page.">
-              <source src="/assets/media/call-for-papers.mp4?v=2026-11-12" type="video/mp4" />
-            </video>
-          </figure>
+          <div class="body">
+            <p class="lede">Submissions will open soon and are handled as they arrive.</p>
+          </div>
         </div>
       </section>
 
@@ -142,7 +142,7 @@
       document.getElementById("year").textContent = new Date().getFullYear();
       // Masthead: once the opening block has scrolled past the header's bottom edge, shrink the lockup.
       (function () {
-        var top = document.querySelector(".cover, .banner, .notfound");
+        var top = document.querySelector(".cover, .banner, .filmhero, .notfound");
         var head = document.querySelector("header.masthead");
         if (!top || !head || !("IntersectionObserver" in window)) return;
         var light = head.querySelector("img.lockup.light");
@@ -172,7 +172,7 @@
       }
     </script>
 
-    <script defer src="/assets/film.js?v=2026-11-12"></script>
+    <script defer src="/assets/film.js?v=2026-11-12b"></script>
 
     <!-- Vercel Web Analytics (cookieless visitor counts). Only works on the live site. -->
     <script>
