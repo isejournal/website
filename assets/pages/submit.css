@@ -1,0 +1,30 @@
+/* Submit: the timetable on a time axis (wide screens, with JavaScript; submit.js adds .axis-on and
+   places the list items). Below 60rem, or without JavaScript, the list is the site's ordinary list. */
+@media (min-width: 60rem) {
+  section.block.cols.timeline .wrap { grid-template-columns: 1fr; }
+
+  #timetable.axis-on { position: relative; }
+  #timetable.axis-on .tt-axis { position: absolute; left: 0; display: block; overflow: visible; pointer-events: none; }
+  #timetable.axis-on .tt-axis.paused .c { animation-play-state: paused; }
+
+  #timetable.axis-on .list { position: relative; max-width: none; margin-top: 2rem; }
+  #timetable.axis-on .list li,
+  #timetable.axis-on .list li:last-child {
+    position: absolute;
+    display: block;
+    width: var(--label-w, 12rem);
+    padding: 0;
+    border: 0;
+    line-height: 1.35;
+  }
+  #timetable.axis-on .list li > span:first-child {
+    display: block;
+    font-family: var(--isej-font-display);
+    font-size: min(var(--isej-step-2), calc(var(--label-w, 12rem) / 6.2));  /* "Acceptance" fits its label width */
+    line-height: 1.15;
+    color: var(--isej-navy);
+    margin-bottom: 0.35rem;
+  }
+  #timetable.axis-on .list li b { display: block; }
+  #timetable.axis-on .list li small { margin-top: 0.2rem; }
+}

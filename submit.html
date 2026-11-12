@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
+    <link rel="stylesheet" href="/assets/pages/submit.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
@@ -80,7 +81,7 @@
         </div>
       </section>
 
-      <section class="block cols">
+      <section class="block cols timeline">
         <div class="wrap">
           <div class="col body" id="timetable">
             <h2>Timetable</h2>
@@ -94,6 +95,11 @@
               <li><span>Acceptance</span><b>Reproduction check, line edit</b><small>Then the next issue</small></li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section class="block cols">
+        <div class="wrap">
           <div class="col body" id="checklist">
             <h2>Submission</h2>
             <p>A submission consists of:</p>
@@ -179,5 +185,6 @@
         };
     </script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script type="module" src="/assets/pages/submit.js"></script>
   </body>
 </html>
