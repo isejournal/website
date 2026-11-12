@@ -157,6 +157,7 @@ h1 {
   max-width: 18ch;
 }
 .lede { font-size: var(--isej-step-1); line-height: 1.45; max-width: var(--isej-measure); margin: 0; }
+.lede + .lede { margin-top: 0.9rem; }
 
 main { flex: 1 0 auto; }
 

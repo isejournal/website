@@ -2,6 +2,7 @@
    Linked with ?v= in people.html: /assets/ is cached for a day, so bump it when this file changes. */
 .roster > :first-child { margin-top: 0; }
 .roster .after { margin: 2.5rem 0 0; }
+.roster .note { max-width: var(--isej-measure); margin: 0 0 1.75rem; }
 .people {
   list-style: none;
   margin: 0;
