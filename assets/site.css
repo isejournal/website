@@ -413,3 +413,7 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
   [data-place$="-right"] > .wrap { display: grid; grid-template-columns: 1fr min(100%, max(34rem, 8 * var(--isej-title-two))); }
   [data-place$="-right"] > .wrap > * { grid-column: 2; }
 }
+
+/* The openings' draw-in, on every load: about 2.6 s in all, lowest level first, the ochre level last
+   (render.css keeps the hero film's slower timing for everything else) */
+.banner .isej-field .c, .cover .isej-field .c { animation-duration: 1.7s; animation-delay: calc(var(--i, 0) * 0.09s); }
