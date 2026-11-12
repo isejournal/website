@@ -14,7 +14,7 @@
 .person { scroll-margin-top: 5.2rem; min-width: 0; }
 .person .frame { aspect-ratio: 1; background: var(--isej-navy-10); margin-bottom: 0.6rem; }
 .portrait { display: block; width: 100%; height: auto; }
-.person h4 { font-family: var(--isej-font-display); font-size: 1rem; font-weight: 400; line-height: 1.3; margin: 0 0 0.2rem; }
+.person h3 { font-family: var(--isej-font-display); font-size: 1rem; font-weight: 400; font-style: normal; line-height: 1.3; margin: 0 0 0.2rem; }
 .person .meta { font-size: var(--isej-step--1); line-height: 1.4; margin: 0; color: var(--isej-navy); }
 .person details { margin-top: 0.4rem; font-size: var(--isej-step--1); line-height: 1.5; }
 .person summary {
