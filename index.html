@@ -159,9 +159,8 @@
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
           if (view === "hero") {
-            // headroom: the pointer's hollow (touch.js) may lower the cleared block by up to 0.008
-            const opening = mountOpening(el, json, "hero", { headroom: 0.012 });
-            import("/assets/field/touch.js").then((touch) => touch.attach(opening.svg, json, "hero", opening));
+            // draws in, settles around the text, then answers the pointer (touch.js), all in opening.js
+            mountOpening(el, json, "hero");
           }
           else if (view !== "mark") mountBanner(el, json, view);
         }
