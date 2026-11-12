@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/assets/fonts/fonts.css?v=2026-11-05b" />
     <link rel="stylesheet" href="/assets/field/render.css" />
     <link rel="stylesheet" href="/assets/field/transition.css" />
+    <link rel="stylesheet" href="/assets/pages/about.css" />
     <script src="/assets/field/transition.js"></script>
   </head>
   <body>
@@ -73,12 +74,14 @@
         </div>
       </section>
 
-      <section class="block cols">
+      <section class="block cols review-row">
         <div class="wrap">
           <div class="col body" id="review">
             <h2>Review</h2>
             <p>Two external referees read every paper that passes the desk, working to a fixed report form. No decision after review rests on one report. Review is triple-blind; see <a href="/policies#anonymity">Policies</a>.</p>
             <p>Given that ISEJ is a journal for undergraduate research, the core editorial team primarily consists of undergraduates as well. Their economic judgement is supplemented by that of the referees for papers which make it past the desk.</p>
+          </div>
+          <div class="route" data-route>
             <ol class="list plain">
               <li><span>1</span><b>Screening</b><small>Anonymised by Operations within five working days of receipt</small></li>
               <li><span>2</span><b>Desk decision</b><small>Section Head, within two weeks; a desk rejection is co-signed by the cluster Deputy</small></li>
@@ -89,6 +92,8 @@
               <li><span>7</span><b>Reproduction check</b><small>Every accepted empirical paper is reproduced before production</small></li>
               <li><span>8</span><b>Publication</b><small>In the next issue whose cut-off the paper meets</small></li>
             </ol>
+          </div>
+          <div class="col body route-after">
             <p>Authors may appeal a rejection on procedural error, a demonstrable misreading, or an undeclared conflict. See <a href="/policies#appeals">Policies</a>.</p>
           </div>
           <div class="col body" id="sections">
@@ -195,5 +200,6 @@
         };
     </script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script type="module" src="/assets/pages/about.js"></script>
   </body>
 </html>
