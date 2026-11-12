@@ -28,7 +28,7 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
+    <!-- shared header: keep identical across pages (only aria-current changes; Submit and 404 keep the paper variant) -->
     <header class="masthead on-navy">
       <div class="wrap">
         <a class="logo" href="/">
@@ -151,12 +151,18 @@
     <!-- The field engine: banners and the home hero are traced in the browser from isej-field.json.
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
-      import { loadField, mountBanner, mountHero } from "/assets/field/engine.js";
+      import { loadField, mountBanner } from "/assets/field/engine.js";
+      import { mountOpening } from "/assets/field/opening.js";
       try {
         const json = await loadField();
+        await document.fonts.ready;   // the lines part around the text as it is finally set
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
-          if (view === "hero") { const hero = mountHero(el, json); import("/assets/field/touch.js").then((touch) => touch.attach(hero, json)); }
+          if (view === "hero") {
+            // headroom: the pointer's hollow (touch.js) may lower the cleared block by up to 0.008
+            const opening = mountOpening(el, json, "hero", { headroom: 0.012 });
+            import("/assets/field/touch.js").then((touch) => touch.attach(opening.svg, json, "hero", opening));
+          }
           else if (view !== "mark") mountBanner(el, json, view);
         }
       } catch (err) {

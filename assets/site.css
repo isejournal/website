@@ -326,3 +326,31 @@ header.masthead.on-navy.stuck .logo img.lockup.light { display: block; }
 .statement .wrap { border: 1px solid var(--isej-hair); padding: clamp(1.5rem, 4vw, 3rem); }
 .statement p { margin: 0; font-family: var(--isej-font-display); font-size: var(--isej-step-1); line-height: 1.45; max-width: 40rem; }
 
+
+/* ---- Openings ---------------------------------------------------------
+   Every page but Submit opens like the call-for-papers film: a navy band, the title large in solid
+   warm white, and the page's own contour lines (opening.js) parting around the text.
+   Phones: the text on navy, then the lines in a band beneath it, as on Home. */
+.banner { background: var(--isej-navy); color: var(--isej-warm-white); display: flex; flex-direction: column; }
+.banner .wrap { order: 1; padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem); }
+.banner div.field-bg { position: relative; order: 2; height: clamp(9rem, 32vw, 14rem); }
+.banner div.field-bg img { display: none; }   /* the static banners are drawn for paper, not navy */
+.banner h1, .cover h1 {
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  max-width: 15ch;
+  margin: 0 0 clamp(1.2rem, 2.5vw, 2rem);
+  color: var(--isej-warm-white);
+}
+@media (min-width: 52rem) {
+  .banner, .cover { position: relative; display: block; min-height: clamp(30rem, 44vw, 42rem); }
+  .banner div.field-bg, .cover .hero-mount { position: absolute; inset: 0; height: auto; align-self: stretch; z-index: 0; }
+  .cover svg { height: 100%; }
+  .cover .hero-mount img { display: none; }   /* the static hero would cross the title */
+  .banner .wrap, .cover .wrap { position: relative; z-index: 1; padding-block: clamp(5rem, 9vw, 8rem) clamp(5rem, 9vw, 8rem); }
+}
+@media (min-width: 52rem) {
+  /* Home's text block is the largest; a taller band leaves the hero's lines room beneath it */
+  .cover { min-height: clamp(36rem, 56vw, 52rem); }
+}

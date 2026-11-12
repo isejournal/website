@@ -28,11 +28,12 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <!-- shared header: keep identical across pages (only aria-current and, on Home, the navy variant change) -->
-    <header class="masthead">
+    <!-- shared header: keep identical across pages (only aria-current changes; Submit and 404 keep the paper variant) -->
+    <header class="masthead on-navy">
       <div class="wrap">
         <a class="logo" href="/">
-          <img class="lockup" src="/assets/logo-lockup.svg?v=2026-11-05b" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup" src="/assets/logo-lockup-navy.svg" width="1800" height="260" alt="ISEJ, The International Student Economics Journal" />
+          <img class="lockup light" data-src="/assets/logo-lockup.svg?v=2026-11-05b" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1800 260%27/%3E" width="1800" height="260" alt="" />
         </a>
         <nav aria-label="Primary">
           <a href="/about">About</a>
@@ -159,12 +160,14 @@
     <!-- The field engine: banners and the home hero are traced in the browser from isej-field.json.
          Without JavaScript the <noscript> images show the same lines from the static SVGs. -->
     <script type="module">
-      import { loadField, mountBanner, mountHero } from "/assets/field/engine.js";
+      import { loadField, mountBanner } from "/assets/field/engine.js";
+      import { mountOpening } from "/assets/field/opening.js";
       try {
         const json = await loadField();
+        await document.fonts.ready;   // the lines part around the text as it is finally set
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
-          if (view === "hero") mountHero(el, json);
+          if (el.closest(".banner")) mountOpening(el, json, view);
           else if (view !== "mark") mountBanner(el, json, view);
         }
       } catch (err) {
