@@ -156,7 +156,7 @@
         const json = await loadField();
         for (const el of document.querySelectorAll(".isej-field[data-field]")) {
           const view = el.dataset.field;
-          if (view === "hero") mountHero(el, json);
+          if (view === "hero") { const hero = mountHero(el, json); import("/assets/field/touch.js").then((touch) => touch.attach(hero, json)); }
           else if (view !== "mark") mountBanner(el, json, view);
         }
       } catch (err) {
