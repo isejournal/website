@@ -45,6 +45,11 @@
       "source": "/partners",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/guidelines",
+      "destination": "/assets/isej-author-guidelines.pdf?v=2026-11-15",
+      "permanent": false
     }
   ]
 }
