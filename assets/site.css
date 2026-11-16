@@ -260,10 +260,11 @@ figure.diagram svg.fig-mobile { max-width: 24rem; }
 figure.diagram svg.fig-desktop { display: none; }
 @media (min-width: 52rem) { figure.diagram svg.fig-desktop { display: block; } figure.diagram svg.fig-mobile { display: none; } }
 /* The call-for-papers film as the Submit page's opening: the full width of the page, played once.
-   Phones get the portrait cut, wider screens the 2:1 cut. The page title stays in the markup for
+   Phones get the portrait cut, wider screens the 8:3 cut. The page title stays in the markup for
    readers who cannot see the film. */
-/* The film is never cropped. It is as wide as the screen unless that would push the start of the page
-   below the fold; then it is scaled down, centred on the navy, and its two sides fade into the navy. */
+/* The film is never cropped. It is as wide as the screen, and the 8:3 cut is short enough that the start
+   of the page shows beneath it. Only in a very short window is it scaled down further; it then sits
+   centred on the navy and its two sides fade into the navy. */
 .filmhero { position: relative; background: var(--isej-navy); --film-ratio: 0.8; --film-max-h: calc(100vh - 4.5rem - 9.5rem);
   --film-w: min(100%, calc(var(--film-max-h) * var(--film-ratio))); }
 @supports (height: 100svh) { .filmhero { --film-max-h: calc(100svh - 4.5rem - 9.5rem); } }
@@ -274,7 +275,7 @@ figure.diagram svg.fig-desktop { display: none; }
 .filmhero::before { left: calc((100% - var(--film-w)) / 2); background: linear-gradient(to right, var(--isej-navy), rgba(27, 42, 74, 0)); }
 .filmhero::after { right: calc((100% - var(--film-w)) / 2); background: linear-gradient(to left, var(--isej-navy), rgba(27, 42, 74, 0)); }
 @media (min-width: 52rem) {
-  .filmhero { --film-ratio: 2; }
+  .filmhero { --film-ratio: 2.6667; }
   .filmhero video.film-wide { display: block; }
   .filmhero video.film-tall { display: none; }
 }
