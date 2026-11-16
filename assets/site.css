@@ -187,6 +187,17 @@ section.block.split .reading .list { margin: 0 0 1rem; max-width: var(--isej-mea
   section.block.split .wrap { grid-template-columns: 5fr 6fr; column-gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
   section.block.split .reading, section.block.split .form { grid-column: auto; }
 }
+/* .headed: the form's heading and the lines that go with it are a block of their own. On phones it comes
+   first, then the text, then the form; on wide screens it sits at the top of the form's column. */
+section.block.split .form-head { grid-column: 1 / -1; min-width: 0; }
+section.block.split .form-head p:last-child { margin-bottom: 0; }
+@media (min-width: 60rem) {
+  section.block.split.headed .wrap { grid-template-rows: auto 1fr; row-gap: 1.25rem; }
+  section.block.split.headed .reading { grid-column: 1; grid-row: 1 / span 2; }
+  section.block.split.headed .form-head { grid-column: 2; grid-row: 1; }
+  section.block.split.headed .form { grid-column: 2; grid-row: 2; }
+  section.block.split.headed .jump { display: none; }
+}
 /* The same idea for text pages: a row of columns, each with its heading above its own text; a heading
    directly in .wrap spans the row. Rows are sections, so the hairline between sections falls between rows.
    .grid keeps going row after row inside one section, with the hairline above each later row.
@@ -251,10 +262,19 @@ figure.diagram svg.fig-desktop { display: none; }
 /* The call-for-papers film as the Submit page's opening: the full width of the page, played once.
    Phones get the portrait cut, wider screens the 2:1 cut. The page title stays in the markup for
    readers who cannot see the film. */
-.filmhero { position: relative; background: var(--isej-navy); }
-.filmhero video.film { display: block; width: 100%; height: auto; max-height: calc(100vh - 4.5rem); object-fit: cover; cursor: pointer; }
+/* The film is never cropped. It is as wide as the screen unless that would push the start of the page
+   below the fold; then it is scaled down, centred on the navy, and its two sides fade into the navy. */
+.filmhero { position: relative; background: var(--isej-navy); --film-ratio: 0.8; --film-max-h: calc(100vh - 4.5rem - 9.5rem);
+  --film-w: min(100%, calc(var(--film-max-h) * var(--film-ratio))); }
+@supports (height: 100svh) { .filmhero { --film-max-h: calc(100svh - 4.5rem - 9.5rem); } }
+.filmhero video.film { display: block; margin-inline: auto; width: var(--film-w); height: auto; cursor: pointer; }
 .filmhero video.film-wide { display: none; }
+.filmhero::before, .filmhero::after { content: ""; position: absolute; top: 0; bottom: 0; pointer-events: none;
+  width: min(6rem, calc((100% - var(--film-w)) * 100)); }
+.filmhero::before { left: calc((100% - var(--film-w)) / 2); background: linear-gradient(to right, var(--isej-navy), rgba(27, 42, 74, 0)); }
+.filmhero::after { right: calc((100% - var(--film-w)) / 2); background: linear-gradient(to left, var(--isej-navy), rgba(27, 42, 74, 0)); }
 @media (min-width: 52rem) {
+  .filmhero { --film-ratio: 2; }
   .filmhero video.film-wide { display: block; }
   .filmhero video.film-tall { display: none; }
 }
