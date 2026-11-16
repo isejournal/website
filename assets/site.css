@@ -182,6 +182,7 @@ section.block.split .reading, section.block.split .form { grid-column: 1 / -1; m
 section.block.split h2 { margin: 0 0 0.9rem; }
 section.block.split .reading h2:not(:first-child) { margin-top: 2.25rem; }
 section.block.split p { margin: 0 0 1rem; max-width: var(--isej-measure); }
+section.block.split .reading .list { margin: 0 0 1rem; max-width: var(--isej-measure); }
 @media (min-width: 60rem) {
   section.block.split .wrap { grid-template-columns: 5fr 6fr; column-gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
   section.block.split .reading, section.block.split .form { grid-column: auto; }
